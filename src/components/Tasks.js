@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Post from './Post'
+import Task from './Task'
 
 const API_URL = 'https://jsonplaceholder.typicode.com/posts'
 
@@ -27,7 +27,7 @@ function Posts() {
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        posts.map((post) => <Post key={post.id} {...post} />)
+        posts.map((post) => <Task key={post.id} {...post} />)
       )}
     </>
   )
