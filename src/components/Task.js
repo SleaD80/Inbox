@@ -1,8 +1,8 @@
-import './Post.css'
+import './Task.css'
 
 function Post({ id, title, userId, body }) {
   return (
-    <div className="post">
+    <div className="task">
       <small>{id}</small>
       <h2>{title}</h2>
       <p>{body}</p>

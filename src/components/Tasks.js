@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react'
 import Task from './Task'
+import data from '../data/tasks'
 
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'
-
-function Posts() {
-  const [posts, setPosts] = useState([])
+function Tasks() {
+  const [tasks, setTasks] = useState([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((posts) => setPosts(posts))
-      .catch((error) => setError(error.message))
-      .finally(() => setIsLoading(false))
+    try {
+      setTasks(data)
+      setIsLoading(false)
+    } catch (error) {
+      setError(error.message)
+    }
+    // fetch(API_URL)
+    //   .then((res) => res.json())
+    //   .then((tasks) => setTasks(tasks))
+    //   .catch((error) => setError(error.message))
+    //   .finally(() => setIsLoading(false))
   }, [])
 
   if (error) {
@@ -22,15 +27,13 @@ function Posts() {
 
   return (
     <>
-      <h1>Задачи</h1>
-      <hr />
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        posts.map((post) => <Task key={post.id} {...post} />)
+        tasks.map((task) => <Task key={task.id} {...task} />)
       )}
     </>
   )
 }
 
-export default Posts
+export default Tasks

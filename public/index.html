@@ -7,9 +7,38 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
     <title>Inbox App</title>
+    <style></style>
   </head>
   <body>
-    <div id="root"></div>
+    <div class="container my-5">
+      <h1 class="fw-light">Задачи</h1>
+      <hr />
+      <div class="row">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+          <div class="col">
+            <div id="root" />
+          </div>
+          <!-- <img class="rounded-image" src="img.jpg" alt="Denis" />
+          <h1 class="fw-light">Denis Sarantsev</h1>
+          <p class="lead text-muted">
+            I'm studying the best course. In this HTML course I will build my
+            personal web site.
+          </p> -->
+        </div>
+        <div class="col">On construction...</div>
+      </div>
+    </div>
   </body>
 </html>
