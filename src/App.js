@@ -1,10 +1,10 @@
-import Tasks from './components/Tasks'
+import TasksList from './components/TasksList'
 import './App.css'
 
 function App() {
   return (
     <div className="App">
-      <Tasks />
+      <TasksList />
     </div>
   )
 }
