@@ -1,14 +1,15 @@
 import './Task.css'
 
-function Post({ id, title, userId, body }) {
+function Task({ stage, title, author, body }) {
   return (
-    <div className="task">
-      <small>{id}</small>
-      <h2>{title}</h2>
+    <div className="col task">
+      {/* <small>{id}</small> */}
+      <small>{stage}</small>
+      <h4>{title}</h4>
+      <small>Автор: {author}</small>
       <p>{body}</p>
-      <h3>User ID: {userId}</h3>
     </div>
   )
 }
 
-export default Post
+export default Task
