@@ -1,4 +1,4 @@
-import './Task.css'
+import './Task.css';
 
 function Task({ stage, title, author, body }) {
   return (
@@ -9,7 +9,7 @@ function Task({ stage, title, author, body }) {
       <small>Автор: {author}</small>
       <p>{body}</p>
     </div>
-  )
+  );
 }
 
-export default Task
+export default Task;

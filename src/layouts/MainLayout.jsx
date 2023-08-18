@@ -1,22 +1,20 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
   return (
     <div className="container my-5">
-      <h1 className="fw-light">Задачи</h1>
+      <div style={{position:'fixed',top:'0'}}>
+          <h1 className="fw-light" >Задачи</h1>
+      </div>
       <hr />
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2">
-        <Outlet />
-        {/* <img className="rounded-image" src="img.jpg" alt="Denis" />
-          <h1 className="fw-light">Denis Sarantsev</h1>
-          <p className="lead text-muted">
-            I'm studying the best course. In this HTML course I will build my
-            personal web site.
-          </p> */}
-        <div className="col">On construction...</div>
+          <div className="col" style={{height:'80vh', overflowY:'auto', overscrollBehavior:'contain'}}>
+              <Outlet />
+          </div>
+          <div className="col" style={{height:'100vh', position:'fixed',right:'0'}}>On construction...</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MainLayout
+export default MainLayout;
