@@ -7,7 +7,7 @@ function App() {
   return (
       <Router>
           <Routes>
-              <Route path='/' element={<MainLayout />}>
+              <Route path='/' element={<MainLayout resizable={true} resizerOptions={{minWidth:300}} />}>
                   <Route
                       path="tasks"
                       element={<TasksList />}
