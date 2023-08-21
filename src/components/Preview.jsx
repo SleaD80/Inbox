@@ -2,11 +2,9 @@ import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 
 // function Preview({ content }) {
 function Preview({ content }) {
-  const path = `../data/${content}`;
-  //   console.log(path);
   const docs = [
-    // { uri: require(path) },
-    { uri: require('../data/content.pdf') },
+    { uri: content },
+    // { uri: require('../data/content.pdf') },
   ];
 
   return (
