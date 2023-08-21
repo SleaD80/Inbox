@@ -34,7 +34,7 @@ class Tasks extends Component {
     }
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     if (this.props.resizable) {
       this.disableResize();
     }
@@ -62,6 +62,7 @@ class Tasks extends Component {
       return (
           <div>
               <table id="taskslayout" style={{width:'100%'}}>
+                  <tbody>
                   <tr>
                       <td style={{width:'50%'}}>
                           <div style={{height:'80vh', overflowY:'auto', overscrollBehavior:'contain'}}>
@@ -74,6 +75,7 @@ class Tasks extends Component {
                           </div>
                       </td>
                   </tr>
+                  </tbody>
               </table>
           </div>
       );
