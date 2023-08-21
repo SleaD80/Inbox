@@ -10,12 +10,13 @@ class TaskInfo extends Component {
             this.currentTask ?
                 <div>
                     <div style={{marginBottom:'20px'}}>
-                        <div style={{float:'left',width:'88%'}}>
+                        <div style={{float:'left',marginRight:'15px'}}>
                             <b>{this.currentTask.title}</b>
                         </div>
                         <div>
                             <span className="badge bg-secondary">{this.stage}</span>
                         </div>
+                        <hr />
                         {this.currentTask.body}
                     </div>
                     <div>

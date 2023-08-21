@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import TasksList from "./TasksList";
 import TaskInfo from "./TaskInfo";
+import Preview from "./Preview";
 import data from '../data/tasks';
 import ColumnResizer from "column-resizer";
 
@@ -90,12 +91,16 @@ class Tasks extends Component {
                         </div>
                     </td>
                     <td style={{width:'50%'}}>
-                        <div style={{textAlign:'left',height:'80vh'}}>
+                        <div style={{textAlign:'left',height:'40vh'}}>
                             <TaskInfo tasks={this.state.data}
                                       currentTask={this.state.currentTask}
                                       getStage={this.getStage}
                                       closeTask={this.closeTask.bind(this)}
                             />
+                        </div>
+                        <hr />
+                        <div style={{textAlign:'center',height:'40vh'}}>
+                            <Preview />
                         </div>
                     </td>
                 </tr>
