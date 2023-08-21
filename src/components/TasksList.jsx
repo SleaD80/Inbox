@@ -1,9 +1,9 @@
 import Task from './Task';
 
-const TasksList = (data) => {
+const TasksList = (props) => {
 
   return (
-    data.tasks.map((task) => <Task key={task.id} {...task} />)
+      props.tasks.filter((task) => task.stage === 0).map((task) => <Task key={task.id} {...task} selectTask={props.selectTask} getStage={props.getStage}/>)
   );
 }
 

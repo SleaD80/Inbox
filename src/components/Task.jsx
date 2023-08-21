@@ -1,10 +1,11 @@
 import './Task.css';
 
-function Task({ stage, title, author, body }) {
+function Task({ id, stage, title, author, body, selectTask, getStage }) {
+  const stageStr = getStage(stage);
   return (
-    <div className="col task">
+      <div className="col task" onClick={() => selectTask(id)}>
       {/* <small>{id}</small> */}
-      <small>{stage}</small>
+      <small>{stageStr}</small>
       <h4>{title}</h4>
       <small>Автор: {author}</small>
       <p>{body}</p>

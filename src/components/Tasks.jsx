@@ -10,7 +10,8 @@ class Tasks extends Component {
   constructor(props) {
     super(props);
     this.state={
-        data: []
+        data: [],
+        currentTask: 1
     };
     this.tableSelector = "#taskslayout";
   }
@@ -58,27 +59,50 @@ class Tasks extends Component {
     }
   }
 
+  selectTask(id) {
+    this.setState({currentTask:id});
+  }
+
+  getStage(stageId) {
+    const stages = {0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено'};
+    return stages[stageId];
+  }
+
+  closeTask(taskId, stageId) {
+    let prevState = [...this.state.data];
+    const ind = this.state.data.findIndex(task => task.id === taskId);
+    prevState[ind].stage = stageId;
+    this.setState({data:prevState});
+  }
+
   render() {
-      return (
-          <div>
-              <table id="taskslayout" style={{width:'100%'}}>
-                  <tbody>
-                  <tr>
-                      <td style={{width:'50%'}}>
-                          <div style={{height:'80vh', overflowY:'auto', overscrollBehavior:'contain'}}>
-                              <TasksList tasks={this.state.data}/>
-                          </div>
-                      </td>
-                      <td style={{textAlign:'center',width:'50%'}}>
-                          <div style={{height:'80vh'}}>
-                              <TaskInfo />
-                          </div>
-                      </td>
-                  </tr>
-                  </tbody>
-              </table>
-          </div>
-      );
+    return (
+        <div>
+            <table id="taskslayout" style={{width:'100%'}}>
+                <tbody>
+                <tr>
+                    <td style={{width:'50%'}}>
+                        <div style={{height:'80vh', overflowY:'auto', overscrollBehavior:'contain'}}>
+                            <TasksList tasks={this.state.data}
+                                       selectTask={this.selectTask.bind(this)}
+                                       getStage={this.getStage}
+                            />
+                        </div>
+                    </td>
+                    <td style={{width:'50%'}}>
+                        <div style={{textAlign:'left',height:'80vh'}}>
+                            <TaskInfo tasks={this.state.data}
+                                      currentTask={this.state.currentTask}
+                                      getStage={this.getStage}
+                                      closeTask={this.closeTask.bind(this)}
+                            />
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    );
   }
 }
 
