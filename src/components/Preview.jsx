@@ -1,19 +1,9 @@
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 
-// function Preview({ content }) {
 function Preview({ content }) {
-  const docs = [
-    { uri: content },
-    // { uri: require('../data/content.pdf') },
-  ];
+  const docs = [{ uri: content }];
 
-  return (
-    <DocViewer
-      documents={docs}
-      //   style={{ width: 500, height: 500 }}
-      pluginRenderers={DocViewerRenderers}
-    />
-  );
+  return <DocViewer documents={docs} pluginRenderers={DocViewerRenderers} />;
 }
 
 export default Preview;

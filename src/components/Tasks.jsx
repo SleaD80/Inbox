@@ -107,7 +107,8 @@ class Tasks extends Component {
                 </div>
                 <hr />
                 <div style={{ textAlign: 'center', height: '40vh' }}>
-                  <Preview />
+                  {/* require(`../data/${this.state.currentTask.content}`) */}
+                  <Preview content={require('../data/content.pdf')} />
                 </div>
               </td>
             </tr>
