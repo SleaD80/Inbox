@@ -8,18 +8,19 @@ import data from "../data/tasks";
 import ColumnResizer from "column-resizer";
 
 class Tasks extends Component {
+    stages = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            currentTask: 1,
+            currentTask: null,
             sorterField: "id",
         };
         this.tableSelector = "#taskslayout";
     }
 
     componentDidMount() {
-        this.setState({ data: data });
+        this.setState({ data: data, currentTask: this.mutateState(data)[0] });
         if (this.props.resizable) {
             this.enableResize();
         }
@@ -63,25 +64,46 @@ class Tasks extends Component {
         }
     }
 
+    mutateState(data) {
+        return data
+            .filter((task) => task.stage === 0)
+            .sort(
+                (a, b) => a[this.state.sorterField] > b[this.state.sorterField]
+            )
+            .map((task) => {
+                const newTask = Object.assign({}, task);
+                newTask.stage = this.getStage(task.stage);
+                return newTask;
+            });
+    }
+
     selectTask(id) {
-        this.setState({ currentTask: id });
+        const tasks = this.mutateState(this.state.data);
+        const currentTask =
+            (tasks.length !== 0
+                ? tasks.find((task) => task.id === id)
+                : null) || tasks[0];
+        this.setState({ currentTask: currentTask });
     }
 
     getStage(stageId) {
-        const stages = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
-        return stages[stageId];
+        return this.stages[stageId];
     }
 
     closeTask(taskId, stageId) {
-        let prevState = [...this.state.data];
+        let newState = [...this.state.data];
         const ind = this.state.data.findIndex((task) => task.id === taskId);
-        prevState[ind].stage = stageId;
-        this.setState({ data: prevState });
+        newState[ind].stage = stageId;
+        this.setState({
+            data: newState,
+            currentTask: this.mutateState(newState)[0],
+        });
     }
 
     sortItemClick(fieldName) {
-        this.setState({ sorterField: fieldName });
-        console.log(fieldName + " clicked");
+        this.setState({ sorterField: fieldName }, () =>
+            this.setState({ currentTask: this.mutateState(this.state.data)[0] })
+        );
     }
 
     render() {
@@ -100,15 +122,10 @@ class Tasks extends Component {
                                     }}
                                 >
                                     <TasksList
-                                        tasks={this.state.data
-                                            .filter((task) => task.stage === 0)
-                                            .sort(
-                                                (a, b) =>
-                                                    a[this.state.sorterField] >
-                                                    b[this.state.sorterField]
-                                            )}
+                                        tasks={this.mutateState(
+                                            this.state.data
+                                        )}
                                         selectTask={this.selectTask.bind(this)}
-                                        getStage={this.getStage}
                                         sorterField={this.sorterField}
                                     />
                                 </div>
@@ -121,9 +138,7 @@ class Tasks extends Component {
                                     }}
                                 >
                                     <TaskInfo
-                                        tasks={this.state.data}
                                         currentTask={this.state.currentTask}
-                                        getStage={this.getStage}
                                         closeTask={this.closeTask.bind(this)}
                                     />
                                 </div>
