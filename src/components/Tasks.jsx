@@ -135,7 +135,7 @@ class Tasks extends Component {
                                 <div
                                     style={{
                                         textAlign: "left",
-                                        height: "40vh",
+                                        height: "30vh",
                                     }}
                                 >
                                     <TaskInfo
@@ -147,10 +147,12 @@ class Tasks extends Component {
                                 <div
                                     style={{
                                         textAlign: "center",
-                                        height: "40vh",
+                                        height: "60vh",
                                     }}
                                 >
-                                    <Preview />
+                                    <Preview
+                                        content={require("../data/content.pdf")}
+                                    />
                                 </div>
                             </td>
                         </tr>
