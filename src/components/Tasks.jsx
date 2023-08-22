@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
-import TasksList from "./TasksList";
-import TaskInfo from "./TaskInfo";
-import Preview from "./Preview";
+import ReactDOM from 'react-dom';
+import TasksList from './TasksList';
+import TaskInfo from './TaskInfo';
+import Preview from './Preview';
 import data from '../data/tasks';
-import ColumnResizer from "column-resizer";
+import ColumnResizer from 'column-resizer';
 
 class Tasks extends Component {
-
   constructor(props) {
     super(props);
-    this.state={
-        data: [],
-        currentTask: 1
+    this.state = {
+      data: [],
+      currentTask: 1,
     };
-    this.tableSelector = "#taskslayout";
+    this.tableSelector = '#taskslayout';
   }
 
   componentDidMount() {
-    this.setState({data:data});
+    this.setState({ data: data });
     if (this.props.resizable) {
       this.enableResize();
     }
@@ -61,52 +60,60 @@ class Tasks extends Component {
   }
 
   selectTask(id) {
-    this.setState({currentTask:id});
+    this.setState({ currentTask: id });
   }
 
   getStage(stageId) {
-    const stages = {0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено'};
+    const stages = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
     return stages[stageId];
   }
 
   closeTask(taskId, stageId) {
     let prevState = [...this.state.data];
-    const ind = this.state.data.findIndex(task => task.id === taskId);
+    const ind = this.state.data.findIndex((task) => task.id === taskId);
     prevState[ind].stage = stageId;
-    this.setState({data:prevState});
+    this.setState({ data: prevState });
   }
 
   render() {
     return (
-        <div>
-            <table id="taskslayout" style={{width:'100%'}}>
-                <tbody>
-                <tr>
-                    <td style={{width:'50%'}}>
-                        <div style={{height:'80vh', overflowY:'auto', overscrollBehavior:'contain'}}>
-                            <TasksList tasks={this.state.data}
-                                       selectTask={this.selectTask.bind(this)}
-                                       getStage={this.getStage}
-                            />
-                        </div>
-                    </td>
-                    <td style={{width:'50%'}}>
-                        <div style={{textAlign:'left',height:'40vh'}}>
-                            <TaskInfo tasks={this.state.data}
-                                      currentTask={this.state.currentTask}
-                                      getStage={this.getStage}
-                                      closeTask={this.closeTask.bind(this)}
-                            />
-                        </div>
-                        <hr />
-                        <div style={{textAlign:'center',height:'40vh'}}>
-                            <Preview />
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+      <div>
+        <table id="taskslayout" style={{ width: '100%' }}>
+          <tbody>
+            <tr>
+              <td style={{ width: '50%' }}>
+                <div
+                  style={{
+                    height: '80vh',
+                    overflowY: 'auto',
+                    overscrollBehavior: 'contain',
+                  }}
+                >
+                  <TasksList
+                    tasks={this.state.data}
+                    selectTask={this.selectTask.bind(this)}
+                    getStage={this.getStage}
+                  />
+                </div>
+              </td>
+              <td style={{ width: '50%' }}>
+                <div style={{ textAlign: 'left', height: '40vh' }}>
+                  <TaskInfo
+                    tasks={this.state.data}
+                    currentTask={this.state.currentTask}
+                    getStage={this.getStage}
+                    closeTask={this.closeTask.bind(this)}
+                  />
+                </div>
+                <hr />
+                <div style={{ textAlign: 'center', height: '40vh' }}>
+                  <Preview />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
