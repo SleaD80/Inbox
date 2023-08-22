@@ -68,9 +68,9 @@ class Tasks extends Component {
         return data
             .filter((task) => task.stage === 0)
             .sort((a, b) => {
-                const x = a[this.state.sorterField];
-                const y = b[this.state.sorterField];
-                return x.localeCompare(y);
+                return a[this.state.sorterField].localeCompare(
+                    b[this.state.sorterField]
+                );
             })
             .map((task) => {
                 const newTask = Object.assign({}, task);
