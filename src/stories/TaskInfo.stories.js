@@ -32,7 +32,9 @@ export const Default = {
       },
     ],
     currentTask: 1,
-    getStage: () => {},
+    getStage: () => {
+      return 'На рассмотрении';
+    },
     closeTask: () => {},
   },
 };

@@ -1,5 +1,4 @@
 const Preview = () => {
-    return <>Document preview is currently under construction</>;
+    return <>Document Preview is under construction</>;
 };
-
 export default Preview;

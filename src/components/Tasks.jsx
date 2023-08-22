@@ -67,9 +67,11 @@ class Tasks extends Component {
     mutateState(data) {
         return data
             .filter((task) => task.stage === 0)
-            .sort(
-                (a, b) => a[this.state.sorterField] > b[this.state.sorterField]
-            )
+            .sort((a, b) => {
+                const x = a[this.state.sorterField];
+                const y = b[this.state.sorterField];
+                return x.localeCompare(y);
+            })
             .map((task) => {
                 const newTask = Object.assign({}, task);
                 newTask.stage = this.getStage(task.stage);
@@ -107,6 +109,7 @@ class Tasks extends Component {
     }
 
     render() {
+        const tasks = this.mutateState(this.state.data);
         return (
             <div>
                 <Header sortItemClick={this.sortItemClick.bind(this)} />
@@ -122,9 +125,7 @@ class Tasks extends Component {
                                     }}
                                 >
                                     <TasksList
-                                        tasks={this.mutateState(
-                                            this.state.data
-                                        )}
+                                        tasks={tasks}
                                         selectTask={this.selectTask.bind(this)}
                                         sorterField={this.sorterField}
                                     />
