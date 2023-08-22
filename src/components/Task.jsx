@@ -1,9 +1,22 @@
 import './Task.css';
 
-function Task({ id, stage, title, author, body, selectTask, getStage }) {
+function Task({
+  id,
+  stage,
+  title,
+  author,
+  body,
+  selectTask,
+  getStage,
+  backgroundColor,
+}) {
   const stageStr = getStage(stage);
   return (
-      <div className="col task" onClick={() => selectTask(id)}>
+    <div
+      className="col task"
+      style={backgroundColor && { backgroundColor }}
+      onClick={() => selectTask(id)}
+    >
       {/* <small>{id}</small> */}
       <small>{stageStr}</small>
       <h4>{title}</h4>
