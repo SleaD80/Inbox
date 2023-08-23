@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-export default function Sort(props) {
+export default function Sort({ sortItemClick, backgroundColor }) {
   const [dropdown, setDropdown] = useState(false);
   const toggleOpen = () => setDropdown(!dropdown);
   const itemPressed = (itemId) => {
     setDropdown(false);
-    props.sortItemClick(itemId);
+    sortItemClick(itemId);
   };
   return (
     <>
@@ -17,6 +17,7 @@ export default function Sort(props) {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
+          style={backgroundColor && { backgroundColor }}
         >
           Сортировка по
         </button>
