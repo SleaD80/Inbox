@@ -39,7 +39,11 @@ class TaskInfo extends Component {
                     </button>
                 </div>
             </div>
-        ) : null;
+        ) : (
+            <div style={{ textAlign: "center" }}>
+                Ни одной задачи не выбрано
+            </div>
+        );
     }
 }
 
