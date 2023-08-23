@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { closeTask } from "../actions";
 
 class TaskInfo extends Component {
     render() {
@@ -47,4 +49,4 @@ class TaskInfo extends Component {
     }
 }
 
-export default TaskInfo;
+export default connect(null, { closeTask })(TaskInfo);

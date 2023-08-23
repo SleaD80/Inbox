@@ -92,16 +92,6 @@ class Tasks extends Component {
         return this.stages[stageId];
     }
 
-    closeTask(taskId, stageId) {
-        let newState = [...this.state.data];
-        const ind = this.state.data.findIndex((task) => task.id === taskId);
-        newState[ind].stage = stageId;
-        this.setState({
-            data: newState,
-            currentTask: this.mutateState(newState)[0],
-        });
-    }
-
     sortItemClick(fieldName) {
         this.setState({ sorterField: fieldName }, () =>
             this.setState({ currentTask: this.mutateState(this.state.data)[0] })
@@ -140,7 +130,6 @@ class Tasks extends Component {
                                 >
                                     <TaskInfo
                                         currentTask={this.state.currentTask}
-                                        closeTask={this.closeTask.bind(this)}
                                     />
                                 </div>
                                 <hr />
