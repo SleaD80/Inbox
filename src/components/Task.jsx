@@ -4,9 +4,12 @@ import { selectTask } from "../actions";
 
 function Task(props) {
     const dispatch = useDispatch();
+    let classesString = "col task alert";
+    classesString += props.active ? " alert-secondary" : " alert-light";
     return (
         <div
-            className="col task"
+            className={classesString}
+            role="alert"
             onClick={() => dispatch(selectTask(props.id))}
         >
             <small>{props.stage}</small>
