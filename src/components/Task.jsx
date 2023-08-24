@@ -1,17 +1,18 @@
 import "./Task.css";
+import { useDispatch } from "react-redux";
+import { selectTask } from "../actions";
 
-function Task({ id, stage, title, author, body, selectTask, backgroundColor }) {
+function Task(props) {
+    const dispatch = useDispatch();
     return (
         <div
             className="col task"
-            style={backgroundColor && { backgroundColor }}
-            onClick={() => selectTask(id)}
+            onClick={() => dispatch(selectTask(props.id))}
         >
-            {/* <small>{id}</small> */}
-            <small>{stage}</small>
-            <h4>{title}</h4>
-            <small>Автор: {author}</small>
-            <p>{body}</p>
+            <small>{props.stage}</small>
+            <h4>{props.title}</h4>
+            <small>Автор: {props.author}</small>
+            <p>{props.body}</p>
         </div>
     );
 }
