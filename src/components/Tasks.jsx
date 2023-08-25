@@ -7,8 +7,9 @@ import Header from "./Header";
 import data from "../data/tasks";
 import ColumnResizer from "column-resizer";
 
+const STAGES = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
+
 class Tasks extends Component {
-  stages = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +85,7 @@ class Tasks extends Component {
   }
 
   getStage(stageId) {
-    return this.stages[stageId];
+    return STAGES[stageId];
   }
 
   closeTask(taskId, stageId) {
@@ -112,19 +113,11 @@ class Tasks extends Component {
           <tbody>
             <tr>
               <td style={{ width: "50%" }}>
-                <div
-                  style={{
-                    height: "100vh",
-                    overflowY: "auto",
-                    overscrollBehavior: "contain",
-                  }}
-                >
-                  <TasksList
-                    tasks={tasks}
-                    selectTask={this.selectTask.bind(this)}
-                    sorterField={this.sorterField}
-                  />
-                </div>
+                <TasksList
+                  tasks={tasks}
+                  selectTask={this.selectTask.bind(this)}
+                  sorterField={this.sorterField}
+                />
               </td>
               <td style={{ width: "50%" }}>
                 <div
