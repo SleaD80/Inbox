@@ -12,7 +12,7 @@ const TasksList = ({ tasks, selectTask }) => {
     setFound(tasks.filter((task) => task.title.includes(text)));
   }
 
-  return (
+  return tasks.length !== 0 ? (
     <>
       <Search handleSearchChange={handleSearchChange} />
       <div
@@ -27,6 +27,8 @@ const TasksList = ({ tasks, selectTask }) => {
         ))}
       </div>
     </>
+  ) : (
+    <div style={{ textAlign: "center" }}>Нет активных задач</div>
   );
 };
 

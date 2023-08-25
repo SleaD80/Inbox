@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { connect } from "react-redux";
 import TasksList from "./TasksList";
 import TaskInfo from "./TaskInfo";
 import Preview from "./Preview";
 import Header from "./Header";
-import data from "../data/tasks";
 import ColumnResizer from "column-resizer";
 
 const STAGES = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
@@ -12,16 +12,10 @@ const STAGES = { 0: "Рассмотрение", 1: "Подписано", 2: "О�
 class Tasks extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [],
-      currentTask: null,
-      sorterField: "id",
-    };
     this.tableSelector = "#taskslayout";
   }
 
   componentDidMount() {
-    this.setState({ data: data, currentTask: this.mutateState(data)[0] });
     if (this.props.resizable) {
       this.enableResize();
     }
@@ -63,61 +57,25 @@ class Tasks extends Component {
     }
   }
 
-  mutateState(data) {
-    return data
-      .filter((task) => task.stage === 0)
-      .sort((a, b) => {
-        return a[this.state.sorterField].localeCompare(
-          b[this.state.sorterField]
-        );
-      })
-      .map((task) => {
-        return { ...task, stage: this.getStage(task.stage) };
-      });
-  }
-
-  selectTask(id) {
-    const tasks = this.mutateState(this.state.data);
-    const currentTask =
-      (tasks.length !== 0 ? tasks.find((task) => task.id === id) : null) ||
-      tasks[0];
-    this.setState({ currentTask: currentTask });
-  }
-
   getStage(stageId) {
     return STAGES[stageId];
   }
 
-  closeTask(taskId, stageId) {
-    let newState = [...this.state.data];
-    const ind = this.state.data.findIndex((task) => task.id === taskId);
-    newState[ind].stage = stageId;
-    this.setState({
-      data: newState,
-      currentTask: this.mutateState(newState)[0],
-    });
-  }
-
-  sortItemClick(fieldName) {
-    this.setState({ sorterField: fieldName }, () =>
-      this.setState({ currentTask: this.mutateState(this.state.data)[0] })
-    );
-  }
-
   render() {
-    const tasks = this.mutateState(this.state.data);
+    const tasks = this.props.tasks
+      .filter((task) => task.stage === 0)
+      .map((task) => {
+        return { ...task, stage: this.getStage(task.stage) };
+      });
+    const currentTask = tasks.find((task) => task.active === 1);
     return (
       <div>
-        <Header sortItemClick={this.sortItemClick.bind(this)} />
+        <Header />
         <table id="taskslayout" style={{ width: "100%" }}>
           <tbody>
             <tr>
               <td style={{ width: "50%" }}>
-                <TasksList
-                  tasks={tasks}
-                  selectTask={this.selectTask.bind(this)}
-                  sorterField={this.sorterField}
-                />
+                <TasksList tasks={tasks} />
               </td>
               <td style={{ width: "50%" }}>
                 <div
@@ -126,22 +84,19 @@ class Tasks extends Component {
                     height: "30vh",
                   }}
                 >
-                  <TaskInfo
-                    currentTask={this.state.currentTask}
-                    closeTask={this.closeTask.bind(this)}
-                  />
+                  <TaskInfo currentTask={currentTask} />
                 </div>
                 <hr />
                 <div
                   style={{
                     textAlign: "center",
-                    height: "60vh",
+                    height: "50vh",
                   }}
                 >
                   <Preview
                     content={
-                      this.state.currentTask
-                        ? require(`../data/${this.state.currentTask.content}`)
+                      currentTask
+                        ? require(`../data/${currentTask.content}`)
                         : null
                     }
                   />
@@ -155,4 +110,8 @@ class Tasks extends Component {
   }
 }
 
-export default Tasks;
+function mapStateToProps(state) {
+  return { tasks: state.tasks };
+}
+
+export default connect(mapStateToProps, {})(Tasks);
