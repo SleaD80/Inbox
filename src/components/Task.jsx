@@ -51,7 +51,7 @@ function Task(props) {
           className="row h-50"
           style={{ marginTop: "15px", textAlign: "center" }}
         >
-          <div className="col-sm-8 align-items-center x-auto my-auto">
+          <div className="col-sm-8 align-items-center my-auto">
             <h3 style={{ color: taskColor }}>{date.month}</h3>
           </div>
         </div>
