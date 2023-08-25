@@ -1,4 +1,4 @@
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 
 function Preview({ content }) {
   const docs = [{ uri: content }];
@@ -7,13 +7,12 @@ function Preview({ content }) {
       documents={docs}
       pluginRenderers={DocViewerRenderers}
       theme={{
-        primary: "#5296d8",
-        secondary: "#ffffff",
-        // tertiary: "#5296d899",
-        tertiary: "rgba(82, 150, 216, 1)",
-        textPrimary: "#ffffff",
-        textSecondary: "#5296d8",
-        textTertiary: "#00000099",
+        primary: 'white',
+        secondary: '#ffffff',
+        tertiary: 'white',
+        textPrimary: '#ffffff',
+        textSecondary: '#5296d8',
+        textTertiary: '#00000099',
         disableThemeScrollbar: false,
       }}
       config={{
