@@ -71,9 +71,7 @@ class Tasks extends Component {
         );
       })
       .map((task) => {
-        const newTask = Object.assign({}, task);
-        newTask.stage = this.getStage(task.stage);
-        return newTask;
+        return { ...task, stage: this.getStage(task.stage) };
       });
   }
 
@@ -116,7 +114,7 @@ class Tasks extends Component {
               <td style={{ width: "50%" }}>
                 <div
                   style={{
-                    height: "80vh",
+                    height: "100vh",
                     overflowY: "auto",
                     overscrollBehavior: "contain",
                   }}
