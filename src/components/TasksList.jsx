@@ -17,7 +17,7 @@ const TasksList = ({ tasks, selectTask }) => {
       <Search handleSearchChange={handleSearchChange} />
       <div
         style={{
-          height: "100vh",
+          height: "80vh",
           overflowY: "auto",
           overscrollBehavior: "contain",
         }}
