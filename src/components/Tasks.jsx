@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { connect } from "react-redux";
-import TasksList from "./TasksList";
-import TaskInfo from "./TaskInfo";
-import Preview from "./Preview";
-import Header from "./Header";
-import ColumnResizer from "column-resizer";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import TasksList from './TasksList';
+import TaskInfo from './TaskInfo';
+import Preview from './Preview';
+import Header from './Header';
+import ColumnResizer from 'column-resizer';
 
-const STAGES = { 0: "Рассмотрение", 1: "Подписано", 2: "Отклонено" };
+const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
-    this.tableSelector = "#taskslayout";
+    this.tableSelector = '#taskslayout';
   }
 
   componentDidMount() {
@@ -64,6 +64,7 @@ class Tasks extends Component {
   render() {
     const tasks = this.props.tasks
       .filter((task) => task.stage === 0)
+      .filter((task) => task.title.includes(this.props.search))
       .map((task) => {
         return { ...task, stage: this.getStage(task.stage) };
       });
@@ -71,17 +72,17 @@ class Tasks extends Component {
     return (
       <div>
         <Header />
-        <table id="taskslayout" style={{ width: "100%" }}>
+        <table id="taskslayout" style={{ width: '100%' }}>
           <tbody>
             <tr>
-              <td style={{ width: "50%" }}>
+              <td style={{ width: '50%' }}>
                 <TasksList tasks={tasks} />
               </td>
-              <td style={{ width: "50%" }}>
+              <td style={{ width: '50%' }}>
                 <div
                   style={{
-                    textAlign: "left",
-                    height: "30vh",
+                    textAlign: 'left',
+                    height: '30vh',
                   }}
                 >
                   <TaskInfo currentTask={currentTask} />
@@ -89,8 +90,8 @@ class Tasks extends Component {
                 <hr />
                 <div
                   style={{
-                    textAlign: "center",
-                    height: "50vh",
+                    textAlign: 'center',
+                    height: '50vh',
                   }}
                 >
                   <Preview
@@ -111,7 +112,7 @@ class Tasks extends Component {
 }
 
 function mapStateToProps(state) {
-  return { tasks: state.tasks };
+  return { tasks: state.tasks, search: state.search };
 }
 
 export default connect(mapStateToProps, {})(Tasks);

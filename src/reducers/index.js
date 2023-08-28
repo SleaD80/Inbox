@@ -52,19 +52,14 @@ function tasks(state = [], action) {
         )
       );
       return selectFirstActive(newState);
-    case SEARCH:
-      // TODO Filter creates a shallow copy. Why assign?
-      newState = clearSelection(
-        Object.assign(
-          [],
-          action.data.filter((task) => task.title.includes(action.text))
-        )
-      );
-      return selectFirstActive(newState);
     default:
       return state;
   }
 }
 
-const rootReducer = combineReducers({ tasks });
+function search(query = '', action) {
+  return action.type === SEARCH ? action.query : query;
+}
+
+const rootReducer = combineReducers({ tasks, search });
 export default rootReducer;

@@ -32,7 +32,6 @@ export const sort = (sorterField) => {
   return { type: SORT, sorterField: sorterField };
 };
 
-export const search = (text) => {
-  // TODO Is dispatcher required?
-  return { type: SEARCH, data: data, text: text };
+export const search = (query) => {
+  return { type: SEARCH, query: query };
 };
