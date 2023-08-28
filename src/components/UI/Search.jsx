@@ -9,7 +9,7 @@ function Search() {
       <input
         type="text"
         className="form-control"
-        placeholder=""
+        placeholder="Поиск"
         aria-label=""
         aria-describedby="basic-addon1"
         onChange={(e) => dispatch(search(e.target.value))}

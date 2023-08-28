@@ -81,7 +81,7 @@ class Tasks extends Component {
         <table id="taskslayout" style={{ width: '100%' }}>
           <tbody>
             <tr>
-              <td style={{ width: '50%' }}>
+              <td style={{ width: '50%', verticalAlign: 'top' }}>
                 <TasksList tasks={tasks} />
               </td>
               <td style={{ width: '50%' }}>
