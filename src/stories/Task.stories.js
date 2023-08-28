@@ -1,4 +1,9 @@
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore } from 'redux';
 import Task from '../components/Task';
+import rootReducer from '../reducers';
+
+const store = createStore(rootReducer);
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -14,16 +19,24 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default = {
   args: {
+    level: 'Warn',
     stage: 'Рассмотрение',
     title: 'Письмо по проекту П3456-890',
     author: 'Панасенков Г.В.',
     body: 'Задача - проблемная ситуация с явно заданной целью, которую необходимо достичь в более узком смысле задачей также называют саму эту цель, данную в рамках проблемной ситуации, то есть то, что требуется...',
-    date: '23 \n Дек',
+    date: 1676026800000,
     getStage: (stage) => {
       return stage;
     },

@@ -1,4 +1,9 @@
 import Header from '../components/Header';
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore } from 'redux';
+import rootReducer from '../reducers';
+
+const store = createStore(rootReducer);
 
 export default {
   title: 'Inbox/Header',
@@ -13,6 +18,13 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };
 
 export const Default = {

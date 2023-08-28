@@ -1,4 +1,9 @@
 import TaskInfo from '../components/TaskInfo';
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore } from 'redux';
+import rootReducer from '../reducers';
+
+const store = createStore(rootReducer);
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -14,6 +19,13 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <Story />
+      </Provider>
+    ),
+  ],
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
