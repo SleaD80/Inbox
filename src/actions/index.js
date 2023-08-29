@@ -7,7 +7,7 @@ export const SEARCH = 'SEARCH';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
-    const result = data;
+    const result = data.sort((a, b) => a.title.localeCompare(b.title));
     dispatch({
       type: FETCH_TASKS,
       tasks: result,
