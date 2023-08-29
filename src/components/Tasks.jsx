@@ -88,7 +88,7 @@ class Tasks extends Component {
                 <div
                   style={{
                     textAlign: 'left',
-                    height: '30vh',
+                    height: '35vh',
                     marginLeft: '15px',
                   }}
                 >
@@ -98,7 +98,7 @@ class Tasks extends Component {
                 <div
                   style={{
                     textAlign: 'center',
-                    height: '50vh',
+                    height: '45vh',
                   }}
                 >
                   <Preview

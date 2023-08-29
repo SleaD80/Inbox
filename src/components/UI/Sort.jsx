@@ -24,7 +24,7 @@ export default function Sort() {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          style={{ minWidth: '105px', maxWidth: '105px', padding: '5px' }}
+          style={{ minWidth: '115px', maxWidth: '115px', padding: '5px' }}
         >
           <img
             src={sortIcon}
