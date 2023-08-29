@@ -89,6 +89,7 @@ class Tasks extends Component {
                   style={{
                     textAlign: 'left',
                     height: '30vh',
+                    marginLeft: '15px',
                   }}
                 >
                   <TaskInfo currentTask={currentTask} />
