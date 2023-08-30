@@ -4,6 +4,7 @@ export const CLOSE_TASK = 'CLOSE_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
 export const SORT = 'SORT';
 export const SEARCH = 'SEARCH';
+export const FILTER = 'FILTER';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
@@ -34,4 +35,8 @@ export const sort = (sorterField) => {
 
 export const search = (query) => {
   return { type: SEARCH, query: query };
+};
+
+export const applyFilter = (criterium) => {
+  return { type: FILTER, criterium: criterium };
 };

@@ -5,9 +5,18 @@ import TasksList from './TasksList';
 import TaskInfo from './TaskInfo';
 import Preview from './Preview';
 import Header from './Header';
+import FiltersList from './FiltersList';
 import ColumnResizer from 'column-resizer';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
+const filterFuncs = {
+  all: () => true,
+  active: (i) => i.stage === 0,
+  approved: (i) => i.stage === 1,
+  rejected: (i) => i.stage === 2,
+  deadline: (i) => i.level === 'Warn',
+  overdue: (i) => i.level === 'Error',
+};
 
 class Tasks extends Component {
   constructor(props) {
@@ -62,8 +71,8 @@ class Tasks extends Component {
   }
 
   render() {
-    const tasks = this.props.tasks
-      .filter((task) => task.stage === 0)
+    const tasks = this.props.tasks.tasks
+      .filter(filterFuncs[this.props.filterCriterium])
       .filter((task) => task.title.includes(this.props.search))
       .map((task) => {
         return { ...task, stage: this.getStage(task.stage) };
@@ -76,12 +85,15 @@ class Tasks extends Component {
       }
     }
     return (
-      <div>
+      <div style={{ overflowY: 'hidden' }}>
         <Header />
         <table id="taskslayout" style={{ width: '100%' }}>
           <tbody>
             <tr>
-              <td style={{ width: '50%', verticalAlign: 'top' }}>
+              <td style={{ width: '12%', verticalAlign: 'top' }}>
+                <FiltersList taskNumbers={this.props.tasks} />
+              </td>
+              <td style={{ width: '38%', verticalAlign: 'top' }}>
                 <TasksList tasks={tasks} />
               </td>
               <td style={{ width: '50%' }}>
@@ -119,7 +131,11 @@ class Tasks extends Component {
 }
 
 function mapStateToProps(state) {
-  return { tasks: state.tasks, search: state.search };
+  return {
+    tasks: state.tasks,
+    search: state.search,
+    filterCriterium: state.filterCriterium,
+  };
 }
 
 export default connect(mapStateToProps, {})(Tasks);
