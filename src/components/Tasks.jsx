@@ -93,7 +93,14 @@ class Tasks extends Component {
               <td style={{ width: '12%', verticalAlign: 'top' }}>
                 <FiltersList taskNumbers={this.props.tasks} />
               </td>
-              <td style={{ width: '38%', verticalAlign: 'top' }}>
+              <td
+                style={{
+                  width: '38%',
+                  verticalAlign: 'top',
+                  borderRight: '1px dotted',
+                  borderColor: 'grey',
+                }}
+              >
                 <TasksList tasks={tasks} />
               </td>
               <td style={{ width: '50%' }}>
