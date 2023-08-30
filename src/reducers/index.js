@@ -9,10 +9,9 @@ import {
 } from '../actions';
 
 function clearSelection(arr) {
-  const newState = arr.map((item) => {
+  return arr.map((item) => {
     return { ...item, active: 0 };
   });
-  return newState;
 }
 
 function tasks(
@@ -71,7 +70,7 @@ function tasks(
         Object.assign(
           [],
           state.tasks.sort((a, b) =>
-            a[action.sorterField].localeCompare(b[action.sorterField])
+            a[action.sorterField] > b[action.sorterField] ? 1 : -1
           )
         )
       );

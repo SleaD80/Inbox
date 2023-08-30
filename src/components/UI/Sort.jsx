@@ -8,7 +8,11 @@ export default function Sort() {
   const [dropdown, setDropdown] = useState(false);
   const [buttonText, setButtonText] = useState('По теме');
   const toggleOpen = () => setDropdown(!dropdown);
-  const buttonLabels = { author: 'По автору', title: 'По теме' };
+  const buttonLabels = {
+    author: 'По автору',
+    title: 'По теме',
+    date: 'По дате',
+  };
   const itemPressed = (fieldName) => {
     setDropdown(false);
     setButtonText(buttonLabels[fieldName]);
@@ -48,6 +52,14 @@ export default function Sort() {
               onClick={() => itemPressed('title')}
             >
               Теме
+            </button>
+          </li>
+          <li>
+            <button
+              className="dropdown-item"
+              onClick={() => itemPressed('date')}
+            >
+              Дате
             </button>
           </li>
         </ul>
