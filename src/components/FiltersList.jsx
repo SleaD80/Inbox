@@ -1,7 +1,6 @@
 import Filter from './Filter';
 
 const FiltersList = (props) => {
-  console.log(props);
   const filters = [
     {
       id: 0,

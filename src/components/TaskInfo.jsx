@@ -15,6 +15,14 @@ function TaskInfo(props) {
     setDisplayState(!displayState);
   };
 
+  const isButtonDisabled = props.currentTask
+    ? props.currentTask.stage !== 'Рассмотрение'
+    : false;
+
+  const buttonClassesString = isButtonDisabled
+    ? 'button btn-secondary rounded'
+    : 'button btn-success rounded';
+
   return props.currentTask ? (
     <div>
       <div style={{ marginBottom: '10px' }}>
@@ -37,7 +45,8 @@ function TaskInfo(props) {
         <button
           onClick={() => dispatch(closeTask(props.currentTask.id, 1))}
           type="button"
-          className="button btn-success rounded"
+          disabled={isButtonDisabled}
+          className={buttonClassesString}
           style={{ width: '40%', marginRight: '18%' }}
         >
           Подписать
@@ -45,7 +54,8 @@ function TaskInfo(props) {
         <button
           onClick={() => dispatch(closeTask(props.currentTask.id, 2))}
           type="button"
-          className="button btn-success rounded"
+          disabled={isButtonDisabled}
+          className={buttonClassesString}
           style={{ width: '40%' }}
         >
           Отклонить

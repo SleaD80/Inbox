@@ -41,7 +41,8 @@ function tasks(
         active: newState.filter((item) => item.stage === 0).length,
       };
     case CLOSE_TASK:
-      newState = clearSelection(state.tasks);
+      //newState = clearSelection(state.tasks);
+      newState = Object.assign([], state.tasks);
       const index = newState.findIndex((item) => item.id === action.taskId);
       const taskToChange = { ...newState[index], stage: action.stageId };
       newState = newState
@@ -66,12 +67,10 @@ function tasks(
       selected.active = 1;
       return { ...state, tasks: newState };
     case SORT:
-      newState = clearSelection(
-        Object.assign(
-          [],
-          state.tasks.sort((a, b) =>
-            a[action.sorterField] > b[action.sorterField] ? 1 : -1
-          )
+      newState = Object.assign(
+        [],
+        state.tasks.sort((a, b) =>
+          a[action.sorterField] > b[action.sorterField] ? 1 : -1
         )
       );
       return { ...state, tasks: newState };
