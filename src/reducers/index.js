@@ -43,15 +43,12 @@ function tasks(state = [], action) {
       selected.active = 1;
       return newState;
     case SORT:
-      const field = action.sorterField;
       newState = clearSelection(
         Object.assign(
           [],
-          state.sort((a, b) => {
-            return field === 'date'
-              ? a[field] - b[field]
-              : a[field].localeCompare(b[field]);
-          })
+          state.sort((a, b) =>
+            a[action.sorterField] > b[action.sorterField] ? 1 : -1
+          )
         )
       );
       return selectFirstActive(newState);
