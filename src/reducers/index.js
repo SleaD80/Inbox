@@ -2,14 +2,9 @@ import { combineReducers } from 'redux';
 import { FETCH_TASKS, CLOSE_TASK, SELECT_TASK, SORT, SEARCH } from '../actions';
 
 function clearSelection(arr) {
-  const newState = Object.assign(
-    [],
-    // TODO Map create new array. Why assign?
-    arr.map((item) => {
-      return { ...item, active: 0 };
-    })
-  );
-  return newState;
+  return arr.map((item) => {
+    return { ...item, active: 0 };
+  });
 }
 
 function selectFirstActive(arr) {
@@ -44,11 +39,8 @@ function tasks(state = [], action) {
       return newState;
     case SORT:
       newState = clearSelection(
-        Object.assign(
-          [],
-          state.sort((a, b) =>
-            a[action.sorterField] > b[action.sorterField] ? 1 : -1
-          )
+        state.sort((a, b) =>
+          a[action.sorterField] > b[action.sorterField] ? 1 : -1
         )
       );
       return selectFirstActive(newState);
