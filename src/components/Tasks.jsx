@@ -6,6 +6,7 @@ import TaskInfo from './TaskInfo';
 import Preview from './Preview';
 import Header from './Header';
 import FiltersList from './FiltersList';
+import gripVerticalIcon from '../assets/grip-vertical.svg';
 import ColumnResizer from 'column-resizer';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
@@ -21,6 +22,7 @@ const filterFuncs = {
 class Tasks extends Component {
   constructor(props) {
     super(props);
+    this.state = { collapsed: false };
     this.tableSelector = '#taskslayout';
   }
 
@@ -70,6 +72,12 @@ class Tasks extends Component {
     return STAGES[stageId];
   }
 
+  getPercentWidth(elId) {
+    const el = document.getElementById(elId);
+    const parent = el.offsetParent || el;
+    return ((el.offsetWidth / parent.offsetWidth) * 100).toFixed(2);
+  }
+
   render() {
     const tasks = this.props.tasks.tasks
       .filter(filterFuncs[this.props.filterCriterium])
@@ -85,10 +93,47 @@ class Tasks extends Component {
         <table id="taskslayout" style={{ width: '100%' }}>
           <tbody>
             <tr>
-              <td style={{ width: '12%', verticalAlign: 'top' }}>
-                <FiltersList taskNumbers={this.props.tasks} />
+              <td
+                style={{ width: '12%', minWidth: '12%', verticalAlign: 'top' }}
+                id="filtersPanel"
+              >
+                <div>
+                  <FiltersList taskNumbers={this.props.tasks} />
+                </div>
+              </td>
+              <td style={{ width: '20px', cursor: 'pointer' }}>
+                <div
+                  style={{ maxWidth: '20px', minWidth: '20px' }}
+                  onClick={() => {
+                    let filtersPanel = document.getElementById('filtersPanel');
+                    let tasklistPanel =
+                      document.getElementById('tasklistPanel');
+                    if (this.state.collapsed) {
+                      filtersPanel.style.width = '12%';
+                      tasklistPanel.style.width =
+                        (
+                          100 -
+                          this.getPercentWidth('rightPanel') -
+                          12
+                        ).toString() + '%';
+                    } else {
+                      filtersPanel.style.width = '0%';
+                    }
+                    this.setState({ collapsed: !this.state.collapsed });
+                  }}
+                >
+                  <img
+                    src={gripVerticalIcon}
+                    style={{
+                      height: '35px',
+                      width: '20px',
+                    }}
+                    alt=""
+                  />
+                </div>
               </td>
               <td
+                id="tasklistPanel"
                 style={{
                   width: '38%',
                   verticalAlign: 'top',
@@ -98,7 +143,7 @@ class Tasks extends Component {
               >
                 <TasksList tasks={tasks} />
               </td>
-              <td style={{ width: '50%' }}>
+              <td id="rightPanel" style={{ width: '50%' }}>
                 <div
                   style={{
                     textAlign: 'left',

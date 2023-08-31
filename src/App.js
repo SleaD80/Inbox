@@ -21,7 +21,11 @@ class App extends Component {
               element={
                 <Tasks
                   resizable={true}
-                  resizerOptions={{ minWidth: 300, disabledColumns: [0] }}
+                  resizerOptions={{
+                    minWidth: 300,
+                    disabledColumns: [0, 1],
+                    flush: true,
+                  }}
                 />
               }
             />
