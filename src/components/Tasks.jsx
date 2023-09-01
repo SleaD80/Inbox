@@ -207,7 +207,9 @@ class Tasks extends Component {
                       status={this.state.previewExpanded}
                       content={
                         currentTask
-                          ? require(`../data/${currentTask.content}`)
+                          ? currentTask.content.map((item) =>
+                              require(`../data/${item}`)
+                            )
                           : null
                       }
                     />
