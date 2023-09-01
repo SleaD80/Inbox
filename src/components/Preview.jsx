@@ -9,7 +9,7 @@ function Preview(props) {
       })
     : [];
 
-  return props.content.length > 0 ? (
+  return (props.content && props.content.length) > 0 ? (
     <>
       <div style={{ textAlign: 'right' }}>
         <button
