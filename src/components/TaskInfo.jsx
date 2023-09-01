@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { closeTask } from '../actions';
+import previewIcon from '../assets/file-text.svg';
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,19 @@ function TaskInfo(props) {
         </div>
         <div>
           <span className="badge bg-secondary">{props.currentTask.stage}</span>
+          <span>
+            <button
+              type="button"
+              className="btn"
+              style={{
+                width: '35px',
+                height: '35px',
+              }}
+              onClick={props.displayPreview()}
+            >
+              <img src={previewIcon} alt=""></img>
+            </button>
+          </span>
         </div>
         <div>
           {displayState

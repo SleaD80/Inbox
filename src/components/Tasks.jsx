@@ -7,6 +7,7 @@ import Preview from './Preview';
 import Header from './Header';
 import FiltersList from './FiltersList';
 import gripVerticalIcon from '../assets/grip-vertical.svg';
+import previewIcon from '../assets/file-text.svg';
 import ColumnResizer from 'column-resizer';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
@@ -25,6 +26,7 @@ class Tasks extends Component {
     this.state = {
       filtersCollapsed: false,
       previewExpanded: false,
+      displayPreview: false,
       rightPanelWidth: 0,
     };
     this.tableSelector = '#taskslayout';
@@ -105,6 +107,11 @@ class Tasks extends Component {
     this.setState({ previewExpanded: !this.state.previewExpanded });
   }
 
+  displayPreview() {
+    this.setState({ displayPreview: !this.state.displayPreview });
+    console.log(this.state);
+  }
+
   render() {
     const tasks = this.props.tasks.tasks
       .filter(filterFuncs[this.props.filterCriterium])
@@ -181,7 +188,10 @@ class Tasks extends Component {
                     marginLeft: '15px',
                   }}
                 >
-                  <TaskInfo currentTask={currentTask} />
+                  <TaskInfo
+                    currentTask={currentTask}
+                    displayPreview={() => this.displayPreview.bind(this)}
+                  />
                 </div>
                 <hr />
                 <div
@@ -191,15 +201,22 @@ class Tasks extends Component {
                     height: '45vh',
                   }}
                 >
-                  <Preview
-                    togglePreview={() => this.togglePreview.bind(this)}
-                    status={this.state.previewExpanded}
-                    content={
-                      currentTask
-                        ? require(`../data/${currentTask.content}`)
-                        : null
-                    }
-                  />
+                  {this.state.displayPreview ? (
+                    <Preview
+                      togglePreview={() => this.togglePreview.bind(this)}
+                      status={this.state.previewExpanded}
+                      content={
+                        currentTask
+                          ? require(`../data/${currentTask.content}`)
+                          : null
+                      }
+                    />
+                  ) : (
+                    <div>
+                      Нажмите <img src={previewIcon} alt=""></img> для
+                      отображения предпросмотра документа
+                    </div>
+                  )}
                 </div>
               </td>
             </tr>
