@@ -92,5 +92,9 @@ function filterCriterium(state = 'all', action) {
   }
 }
 
-const rootReducer = combineReducers({ tasks, search, filterCriterium });
+const rootReducer = combineReducers({
+  tasks,
+  search,
+  filterCriterium,
+});
 export default rootReducer;

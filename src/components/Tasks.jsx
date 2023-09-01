@@ -22,7 +22,11 @@ const filterFuncs = {
 class Tasks extends Component {
   constructor(props) {
     super(props);
-    this.state = { collapsed: false };
+    this.state = {
+      filtersCollapsed: false,
+      previewExpanded: false,
+      rightPanelWidth: 0,
+    };
     this.tableSelector = '#taskslayout';
   }
 
@@ -78,6 +82,29 @@ class Tasks extends Component {
     return ((el.offsetWidth / parent.offsetWidth) * 100).toFixed(2);
   }
 
+  togglePreview() {
+    let filtersPanel = document.getElementById('filtersPanel');
+    let tasklistPanel = document.getElementById('tasklistPanel');
+    let taskinfoPanel = document.getElementById('taskInfo');
+    let previewPanel = document.getElementById('previewPanel');
+    let rightPanel = document.getElementById('rightPanel');
+    if (!this.state.previewExpanded) {
+      this.setState({ rightPanelWidth: rightPanel.style.width }, () => {
+        filtersPanel.hidden = true;
+        tasklistPanel.hidden = true;
+        taskinfoPanel.hidden = true;
+        previewPanel.style.height = '80vh';
+      });
+    } else {
+      filtersPanel.hidden = false;
+      tasklistPanel.hidden = false;
+      taskinfoPanel.hidden = false;
+      previewPanel.style.height = '45vh';
+      rightPanel.style.width = this.state.rightPanelWidth;
+    }
+    this.setState({ previewExpanded: !this.state.previewExpanded });
+  }
+
   render() {
     const tasks = this.props.tasks.tasks
       .filter(filterFuncs[this.props.filterCriterium])
@@ -108,7 +135,7 @@ class Tasks extends Component {
                     let filtersPanel = document.getElementById('filtersPanel');
                     let tasklistPanel =
                       document.getElementById('tasklistPanel');
-                    if (this.state.collapsed) {
+                    if (this.state.filtersCollapsed) {
                       filtersPanel.style.width = '12%';
                       tasklistPanel.style.width =
                         (
@@ -119,7 +146,9 @@ class Tasks extends Component {
                     } else {
                       filtersPanel.style.width = '0%';
                     }
-                    this.setState({ collapsed: !this.state.collapsed });
+                    this.setState({
+                      filtersCollapsed: !this.state.filtersCollapsed,
+                    });
                   }}
                 >
                   <img
@@ -145,6 +174,7 @@ class Tasks extends Component {
               </td>
               <td id="rightPanel" style={{ width: '50%' }}>
                 <div
+                  id="taskInfo"
                   style={{
                     textAlign: 'left',
                     height: '35vh',
@@ -155,12 +185,15 @@ class Tasks extends Component {
                 </div>
                 <hr />
                 <div
+                  id="previewPanel"
                   style={{
                     textAlign: 'center',
                     height: '45vh',
                   }}
                 >
                   <Preview
+                    togglePreview={() => this.togglePreview.bind(this)}
+                    status={this.state.previewExpanded}
                     content={
                       currentTask
                         ? require(`../data/${currentTask.content}`)
@@ -182,6 +215,7 @@ function mapStateToProps(state) {
     tasks: state.tasks,
     search: state.search,
     filterCriterium: state.filterCriterium,
+    previewExpanded: state.togglePreview,
   };
 }
 
