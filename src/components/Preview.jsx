@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import expandIcon from '../assets/arrows-angle-expand.svg';
 import contractIcon from '../assets/arrows-angle-contract.svg';
@@ -9,12 +8,6 @@ function Preview(props) {
         return { uri: item };
       })
     : [];
-
-  const [activeDocument, setActiveDocument] = useState(docs[0]);
-
-  const handleDocumentChange = (document) => {
-    setActiveDocument(document);
-  };
 
   return props.content.length > 0 ? (
     <>
@@ -35,18 +28,16 @@ function Preview(props) {
       </div>
       <DocViewer
         documents={docs}
-        activeDocument={activeDocument}
         pluginRenderers={DocViewerRenderers}
-        onDocumentChange={handleDocumentChange}
-        //theme={{
-        //primary: 'white',
-        //secondary: '#ffffff',
-        //tertiary: 'white',
-        //textPrimary: '#ffffff',
-        //textSecondary: '#5296d8',
-        //textTertiary: '#00000099',
-        //disableThemeScrollbar: false,
-        //}}
+        theme={{
+          primary: 'white',
+          //secondary: '#ffffff',
+          tertiary: 'white',
+          //textPrimary: '#ffffff',
+          //textSecondary: '#5296d8',
+          //textTertiary: '#00000099',
+          disableThemeScrollbar: false,
+        }}
         config={{
           header: {
             disableHeader: false,

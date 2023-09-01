@@ -1,16 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { closeTask } from '../actions';
+import { closeTask, togglePreview } from '../actions';
 import previewIcon from '../assets/file-text.svg';
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
   const displayStates = { true: 'Кратко', false: 'Подробнее' };
   const [displayState, setDisplayState] = useState(false);
-  useEffect(
-    () => setDisplayState(false),
-    [props.currentTask ? props.currentTask.id : 0]
-  );
+
+  useEffect(() => {
+    setDisplayState(false);
+  }, [props.currentTask ? props.currentTask.id : 0]);
 
   const expandCollapseBody = () => {
     setDisplayState(!displayState);
@@ -40,7 +40,7 @@ function TaskInfo(props) {
                 width: '35px',
                 height: '35px',
               }}
-              onClick={props.displayPreview()}
+              onClick={() => dispatch(togglePreview())}
             >
               <img src={previewIcon} alt=""></img>
             </button>

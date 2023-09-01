@@ -107,11 +107,6 @@ class Tasks extends Component {
     this.setState({ previewExpanded: !this.state.previewExpanded });
   }
 
-  displayPreview() {
-    this.setState({ displayPreview: !this.state.displayPreview });
-    console.log(this.state);
-  }
-
   render() {
     const tasks = this.props.tasks.tasks
       .filter(filterFuncs[this.props.filterCriterium])
@@ -201,7 +196,7 @@ class Tasks extends Component {
                     height: '45vh',
                   }}
                 >
-                  {this.state.displayPreview ? (
+                  {this.props.displayPreview ? (
                     <Preview
                       togglePreview={() => this.togglePreview.bind(this)}
                       status={this.state.previewExpanded}
@@ -235,6 +230,7 @@ function mapStateToProps(state) {
     search: state.search,
     filterCriterium: state.filterCriterium,
     previewExpanded: state.togglePreview,
+    displayPreview: state.displayPreview,
   };
 }
 

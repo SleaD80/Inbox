@@ -5,6 +5,7 @@ export const SELECT_TASK = 'SELECT_TASK';
 export const SORT = 'SORT';
 export const SEARCH = 'SEARCH';
 export const FILTER = 'FILTER';
+export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
@@ -39,4 +40,8 @@ export const search = (query) => {
 
 export const applyFilter = (criterium) => {
   return { type: FILTER, criterium: criterium };
+};
+
+export const togglePreview = () => {
+  return { type: TOGGLE_PREVIEW };
 };
