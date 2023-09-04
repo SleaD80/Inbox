@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import {
   FETCH_TASKS,
-  CLOSE_TASK,
+  APPROVE_TASK,
+  REJECT_TASK,
   SELECT_TASK,
   SORT,
   SEARCH,
@@ -40,24 +41,24 @@ function tasks(
         deadline: newState.filter((item) => item.level === 'Warn').length,
         overdue: newState.filter((item) => item.level === 'Error').length,
       };
-    case CLOSE_TASK:
-      const tasks = state.tasks.map((task) =>
-        task.id === action.taskId ? { ...task, stage: action.stageId } : task
-      );
-      console.log(tasks);
-      return action.stageId === 1
-        ? {
-            ...state,
-            tasks: tasks,
-            approved: state.approved + 1,
-            active: state.active - 1,
-          }
-        : {
-            ...state,
-            tasks: tasks,
-            rejected: state.rejected + 1,
-            active: state.active - 1,
-          };
+    case APPROVE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.taskId ? { ...task, stage: 1 } : task
+        ),
+        approved: state.approved + 1,
+        active: state.active - 1,
+      };
+    case REJECT_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.taskId ? { ...task, stage: 2 } : task
+        ),
+        rejected: state.rejected + 1,
+        active: state.active - 1,
+      };
     case SELECT_TASK:
       newState = clearSelection(state.tasks);
       const selected = newState.find((item) => item.id === action.taskId);

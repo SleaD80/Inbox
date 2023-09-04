@@ -1,6 +1,7 @@
 import data from '../data/tasks';
 export const FETCH_TASKS = 'FETCH_TASKS';
-export const CLOSE_TASK = 'CLOSE_TASK';
+export const APPROVE_TASK = 'APPROVE_TASK';
+export const REJECT_TASK = 'REJECT_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
 export const SORT = 'SORT';
 export const SEARCH = 'SEARCH';
@@ -21,8 +22,12 @@ export const fetchTasks = () => async (dispatch) => {
   }
 };
 
-export const closeTask = (taskId, stageId) => {
-  return { type: CLOSE_TASK, taskId: taskId, stageId: stageId };
+export const approveTask = (taskId, stageId) => {
+  return { type: APPROVE_TASK, taskId: taskId };
+};
+
+export const rejectTask = (taskId, stageId) => {
+  return { type: REJECT_TASK, taskId: taskId };
 };
 
 export const selectTask = (taskId) => {
