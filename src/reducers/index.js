@@ -7,6 +7,7 @@ import {
   SORT,
   SEARCH,
   FILTER,
+  TOGGLE_PREVIEW,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -90,9 +91,21 @@ function filterCriterium(state = 'all', action) {
   }
 }
 
+function displayPreview(state = false, action) {
+  switch (action.type) {
+    case SELECT_TASK:
+      return false;
+    case TOGGLE_PREVIEW:
+      return !state;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   tasks,
   search,
   filterCriterium,
+  displayPreview,
 });
 export default rootReducer;
