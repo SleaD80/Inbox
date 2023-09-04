@@ -33,31 +33,28 @@ function tasks(
       newState[0].active = 1;
       return {
         tasks: newState,
-        rejected: newState.filter((item) => item.stage === 2).length,
-        approved: newState.filter((item) => item.stage === 1).length,
-        deadline: newState.filter((item) => item.level === 'Warn').length,
-        overdue: newState.filter((item) => item.level === 'Error').length,
         all: newState.length,
         active: newState.filter((item) => item.stage === 0).length,
+        approved: newState.filter((item) => item.stage === 1).length,
+        rejected: newState.filter((item) => item.stage === 2).length,
+        deadline: newState.filter((item) => item.level === 'Warn').length,
+        overdue: newState.filter((item) => item.level === 'Error').length,
       };
     case CLOSE_TASK:
-      //newState = clearSelection(state.tasks);
-      newState = Object.assign([], state.tasks);
-      const index = newState.findIndex((item) => item.id === action.taskId);
-      const taskToChange = { ...newState[index], stage: action.stageId };
-      newState = newState
-        .slice(0, index)
-        .concat([taskToChange], newState.slice(index + 1));
+      const tasks = state.tasks.map((task) =>
+        task.id === action.taskId ? { ...task, stage: action.stageId } : task
+      );
+      console.log(tasks);
       return action.stageId === 1
         ? {
             ...state,
-            tasks: newState,
+            tasks: tasks,
             approved: state.approved + 1,
             active: state.active - 1,
           }
         : {
             ...state,
-            tasks: newState,
+            tasks: tasks,
             rejected: state.rejected + 1,
             active: state.active - 1,
           };
