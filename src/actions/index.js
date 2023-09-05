@@ -23,11 +23,11 @@ export const fetchTasks = () => async (dispatch) => {
   }
 };
 
-export const approveTask = (taskId, stageId) => {
+export const approveTask = (taskId) => {
   return { type: APPROVE_TASK, taskId: taskId };
 };
 
-export const rejectTask = (taskId, stageId) => {
+export const rejectTask = (taskId) => {
   return { type: REJECT_TASK, taskId: taskId };
 };
 
