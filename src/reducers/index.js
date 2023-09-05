@@ -1,16 +1,13 @@
 import { combineReducers } from 'redux';
 import {
   FETCH_TASKS,
-  APPROVE_TASK,
-  REJECT_TASK,
+  CLOSE_TASK,
   SELECT_TASK,
   SORT,
   SEARCH,
   FILTER,
   TOGGLE_PREVIEW,
 } from '../actions';
-
-const CRITERIA = { Warn: 'deadline', Error: 'overdue' };
 
 function clearSelection(arr) {
   return arr.map((item) => {
@@ -31,7 +28,7 @@ function tasks(
   },
   action
 ) {
-  let newState = [];
+  let newState = {};
   switch (action.type) {
     case FETCH_TASKS:
       newState = clearSelection(action.tasks);
@@ -46,28 +43,26 @@ function tasks(
         deadline: newState.filter((item) => item.level === 'Warn').length,
         overdue: newState.filter((item) => item.level === 'Error').length,
       };
-    case APPROVE_TASK:
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.taskId ? { ...task, stage: 1, level: 'Ok' } : task
-        ),
-        approved: state.approved + 1,
-        active: state.active - 1,
-        [CRITERIA[state.selected.level]]:
-          state[CRITERIA[state.selected.level]] - 1,
-      };
-    case REJECT_TASK:
-      return {
-        ...state,
-        tasks: state.tasks.map((task) =>
-          task.id === action.taskId ? { ...task, stage: 2, level: 'Ok' } : task
-        ),
-        rejected: state.rejected + 1,
-        active: state.active - 1,
-        [CRITERIA[state.selected.level]]:
-          state[CRITERIA[state.selected.level]] - 1,
-      };
+    case CLOSE_TASK:
+      const index = state.tasks.findIndex((item) => item.id === action.taskId);
+      let taskToChange = state.tasks[index];
+      let levelFilterToDecrement = null;
+      if (taskToChange.level != 'Ok') {
+        levelFilterToDecrement =
+          taskToChange.level === 'Warn' ? 'deadline' : 'overdue';
+      }
+      const stageToIncrement = action.stageId === 1 ? 'approved' : 'rejected';
+      taskToChange = { ...taskToChange, level: 'Ok', stage: action.stageId };
+      newState = Object.assign({}, state);
+      newState.tasks = newState.tasks
+        .slice(0, index)
+        .concat([taskToChange], newState.tasks.slice(index + 1));
+      newState.active = newState.active - 1;
+      newState[stageToIncrement] = newState[stageToIncrement] + 1;
+      if (levelFilterToDecrement) {
+        newState[levelFilterToDecrement] = newState[levelFilterToDecrement] - 1;
+      }
+      return newState;
     case SELECT_TASK:
       newState = clearSelection(state.tasks);
       const selected = newState.find((item) => item.id === action.taskId);

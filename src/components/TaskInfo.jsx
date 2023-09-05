@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { approveTask, rejectTask, togglePreview } from '../actions';
+import { closeTask, togglePreview } from '../actions';
 import previewIcon from '../assets/file-text.svg';
 
 function TaskInfo(props) {
@@ -57,7 +57,7 @@ function TaskInfo(props) {
       </div>
       <div>
         <button
-          onClick={() => dispatch(approveTask(props.currentTask.id))}
+          onClick={() => dispatch(closeTask(props.currentTask.id, 1))}
           type="button"
           disabled={isButtonDisabled}
           className={buttonClassesString}
@@ -66,7 +66,7 @@ function TaskInfo(props) {
           Подписать
         </button>
         <button
-          onClick={() => dispatch(rejectTask(props.currentTask.id))}
+          onClick={() => dispatch(closeTask(props.currentTask.id, 2))}
           type="button"
           disabled={isButtonDisabled}
           className={buttonClassesString}
