@@ -10,6 +10,8 @@ import {
   TOGGLE_PREVIEW,
 } from '../actions';
 
+const CRITERIA = { Warn: 'deadline', Error: 'overdue' };
+
 function clearSelection(arr) {
   return arr.map((item) => {
     return { ...item, active: 0 };
@@ -19,6 +21,7 @@ function clearSelection(arr) {
 function tasks(
   state = {
     tasks: [],
+    selected: {},
     active: 0,
     rejected: 0,
     approved: 0,
@@ -35,6 +38,7 @@ function tasks(
       newState[0].active = 1;
       return {
         tasks: newState,
+        selected: newState[0],
         all: newState.length,
         active: newState.filter((item) => item.stage === 0).length,
         approved: newState.filter((item) => item.stage === 1).length,
@@ -46,25 +50,29 @@ function tasks(
       return {
         ...state,
         tasks: state.tasks.map((task) =>
-          task.id === action.taskId ? { ...task, stage: 1 } : task
+          task.id === action.taskId ? { ...task, stage: 1, level: 'Ok' } : task
         ),
         approved: state.approved + 1,
         active: state.active - 1,
+        [CRITERIA[state.selected.level]]:
+          state[CRITERIA[state.selected.level]] - 1,
       };
     case REJECT_TASK:
       return {
         ...state,
         tasks: state.tasks.map((task) =>
-          task.id === action.taskId ? { ...task, stage: 2 } : task
+          task.id === action.taskId ? { ...task, stage: 2, level: 'Ok' } : task
         ),
         rejected: state.rejected + 1,
         active: state.active - 1,
+        [CRITERIA[state.selected.level]]:
+          state[CRITERIA[state.selected.level]] - 1,
       };
     case SELECT_TASK:
       newState = clearSelection(state.tasks);
       const selected = newState.find((item) => item.id === action.taskId);
       selected.active = 1;
-      return { ...state, tasks: newState };
+      return { ...state, tasks: newState, selected: selected };
     case SORT:
       newState = Object.assign(
         [],
