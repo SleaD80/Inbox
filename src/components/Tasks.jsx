@@ -115,7 +115,10 @@ class Tasks extends Component {
         return { ...task, stage: this.getStage(task.stage) };
       });
     let currentTask = tasks.find((task) => task.active === 1);
-    currentTask = currentTask ? currentTask : tasks[0];
+    if (!currentTask && tasks.length > 0) {
+      tasks[0].active = 1;
+      currentTask = tasks[0];
+    }
     return (
       <div style={{ overflowY: 'hidden' }}>
         <Header />

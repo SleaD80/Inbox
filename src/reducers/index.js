@@ -18,7 +18,6 @@ function clearSelection(arr) {
 function tasks(
   state = {
     tasks: [],
-    selected: {},
     active: 0,
     rejected: 0,
     approved: 0,
@@ -35,7 +34,6 @@ function tasks(
       newState[0].active = 1;
       return {
         tasks: newState,
-        selected: newState[0],
         all: newState.length,
         active: newState.filter((item) => item.stage === 0).length,
         approved: newState.filter((item) => item.stage === 1).length,
@@ -54,9 +52,7 @@ function tasks(
       const stageToIncrement = action.stageId === 1 ? 'approved' : 'rejected';
       taskToChange = { ...taskToChange, level: 'Ok', stage: action.stageId };
       newState = Object.assign({}, state);
-      newState.tasks = newState.tasks
-        .slice(0, index)
-        .concat([taskToChange], newState.tasks.slice(index + 1));
+      newState.tasks[index] = taskToChange;
       newState.active = newState.active - 1;
       newState[stageToIncrement] = newState[stageToIncrement] + 1;
       if (levelFilterToDecrement) {
@@ -67,7 +63,7 @@ function tasks(
       newState = clearSelection(state.tasks);
       const selected = newState.find((item) => item.id === action.taskId);
       selected.active = 1;
-      return { ...state, tasks: newState, selected: selected };
+      return { ...state, tasks: newState };
     case SORT:
       newState = Object.assign(
         [],
