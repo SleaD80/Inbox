@@ -1,9 +1,4 @@
 import Sort from '../components/UI/Sort';
-import { Provider } from 'react-redux';
-import { legacy_createStore as createStore } from 'redux';
-import rootReducer from '../reducers';
-
-const store = createStore(rootReducer);
 
 export default {
   title: 'Inbox/Sort',
@@ -18,13 +13,6 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-  decorators: [
-    (Story) => (
-      <Provider store={store}>
-        <Story />
-      </Provider>
-    ),
-  ],
 };
 
 export const Default = {
