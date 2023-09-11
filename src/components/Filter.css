@@ -1,6 +1,12 @@
-.btn-outline-secondary:hover {
-  background:white;
-  text-shadow:1px 1px;
-  box-shadow:3px 3px;
-  color:grey;
+.list-group {
+  margin: 5px;
+}
+
+.list-group-item > span.badge {
+  margin: 0 5px;
+}
+
+.list-group-item:hover {
+  color: #084298;
+  border: 1px solid;
 }

@@ -41,16 +41,16 @@ const FiltersList = (props) => {
   ];
 
   return (
-    <>
+    <ul className="list-group">
       {filters.map((item) => (
         <Filter
-          key={item.id}
           title={item.title}
           number={item.number}
           criterium={item.criterium}
+          key={item.id}
         />
       ))}
-    </>
+    </ul>
   );
 };
 

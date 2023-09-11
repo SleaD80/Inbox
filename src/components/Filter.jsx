@@ -1,22 +1,23 @@
-import './Filter.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from '../actions';
+import './Filter.css';
 
 const Filter = (props) => {
+  const { criterium, title, number } = props;
   const dispatch = useDispatch();
+  const filterCriterium = useSelector((store) => store.filterCriterium);
   return (
-    <button
-      type="button"
-      className="btn btn-outline-secondary"
-      style={{ marginTop: '5px', width: '90%', marginLeft: '10px' }}
+    <li
+      className={`${
+        criterium === filterCriterium ? 'list-group-item-primary' : ''
+      } list-group-item d-flex justify-content-between align-items-center`}
       onClick={() => {
-        dispatch(applyFilter(props.criterium));
+        dispatch(applyFilter(criterium));
       }}
     >
-      <span className="badge bg-primary">{props.number}</span>
-      <br />
-      {props.title}
-    </button>
+      {title}
+      <span className="badge bg-primary rounded-pill">{number}</span>
+    </li>
   );
 };
 
