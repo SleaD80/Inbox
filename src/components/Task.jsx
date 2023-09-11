@@ -34,7 +34,7 @@ function Task(props) {
     marginLeft: '5px',
   };
   return (
-    <div className="d-flex task" style={styles}>
+    <div className="d-flex task task-container" style={styles}>
       <div
         className="col"
         role="alert"
