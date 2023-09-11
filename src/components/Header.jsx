@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import Sort from './UI/Sort';
+import Search from './UI/Search';
 
 class Header extends Component {
   render() {
-    const { sortItemClick, backgroundColor } = this.props;
     return (
-      <>
-        <nav
-          className="navbar navbar-light"
-          style={{
-            backgroundColor: backgroundColor ? backgroundColor : '#e3f2fd',
-            paddingLeft: '15px',
-            paddingRight: '15px',
-          }}
-        >
-          <span className="navbar-brand mb-0">
-            <h1>Задачи</h1>
-          </span>
-          <Sort sortItemClick={sortItemClick} />
-        </nav>
-      </>
+      <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div className="container-fluid">
+          <span className="navbar-brand">Меню</span>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarColor01"
+            aria-controls="navbarColor01"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarColor01">
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <button className="nav-link active">
+                  Задачи
+                  <span className="visually-hidden">(current)</span>
+                </button>
+              </li>
+            </ul>
+            <form className="d-flex">
+              <Search />
+            </form>
+          </div>
+        </div>
+      </nav>
     );
   }
 }

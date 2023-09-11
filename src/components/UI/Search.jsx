@@ -6,14 +6,14 @@ function Search() {
   const dispatch = useDispatch();
 
   return (
-    <div className="task-container">
-      <input
-        type="search"
-        className="form-control"
-        placeholder="Поиск"
-        onChange={(e) => dispatch(search(e.target.value))}
-      />
-    </div>
+    // <div className="task-container">
+    <input
+      type="search"
+      className="form-control"
+      placeholder="Поиск"
+      onChange={(e) => dispatch(search(e.target.value))}
+    />
+    // </div>
   );
 }
 
