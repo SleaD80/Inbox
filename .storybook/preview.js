@@ -1,5 +1,4 @@
 /** @type { import('@storybook/react').Preview } */
-// import './bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootswatch/dist/materia/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore } from 'redux';
