@@ -180,10 +180,10 @@ class Tasks extends Component {
               <td id="rightPanel" style={{ width: '50%' }}>
                 <div
                   id="taskInfo"
+                  className="container"
                   style={{
                     textAlign: 'left',
                     height: '35vh',
-                    marginLeft: '15px',
                   }}
                 >
                   <TaskInfo

@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { closeTask, togglePreview } from '../actions';
 import previewIcon from '../assets/file-text.svg';
+import './TaskInfo.css';
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
@@ -10,69 +11,47 @@ function TaskInfo(props) {
 
   useEffect(() => {
     setDisplayState(false);
-  }, [props.currentTask ? props.currentTask.id : 0]);
+  }, [props.currentTask?.id]);
 
   const expandCollapseBody = () => {
     setDisplayState(!displayState);
   };
 
-  const isButtonDisabled = props.currentTask
-    ? props.currentTask.stage !== 'Рассмотрение'
-    : false;
-
-  const buttonClassesString = isButtonDisabled
-    ? 'button btn-secondary rounded'
-    : 'button btn-success rounded';
-
   return props.currentTask ? (
-    <div>
-      <div style={{ marginBottom: '10px' }}>
-        <div style={{ float: 'left', marginRight: '15px' }}>
-          <b>{props.currentTask.title}</b>
-        </div>
-        <div>
-          <span className="badge bg-secondary">{props.currentTask.stage}</span>
-          <span>
-            <button
-              type="button"
-              className="btn"
-              style={{
-                width: '35px',
-                height: '35px',
-              }}
-              onClick={() => dispatch(togglePreview())}
-            >
-              <img src={previewIcon} alt=""></img>
-            </button>
-          </span>
-        </div>
-        <div>
+    <div className="card">
+      <div className="card-body">
+        <h4 className="card-title">{props.currentTask.title}</h4>
+        <h6 className="card-subtitle mb-2 text-muted">
+          {props.currentTask.stage}
+        </h6>
+        <p className="card-text">
+          {' '}
           {displayState
             ? props.currentTask.body
             : props.currentTask.body.slice(0, 200) + '...'}
-        </div>
-      </div>
-      <div style={{ color: 'blue' }} onClick={expandCollapseBody}>
-        {displayStates[displayState]}
-      </div>
-      <div>
+        </p>
+        <p className="btn-link" onClick={expandCollapseBody}>
+          {displayStates[displayState]}
+        </p>
         <button
+          className="card-link btn btn-primary btn-sm"
+          disabled={props.currentTask.stage !== 'Рассмотрение'}
           onClick={() => dispatch(closeTask(props.currentTask.id, 1))}
-          type="button"
-          disabled={isButtonDisabled}
-          className={buttonClassesString}
-          style={{ width: '40%', marginRight: '18%' }}
         >
           Подписать
         </button>
         <button
+          className="card-link btn btn-secondary btn-sm"
+          disabled={props.currentTask.stage !== 'Рассмотрение'}
           onClick={() => dispatch(closeTask(props.currentTask.id, 2))}
-          type="button"
-          disabled={isButtonDisabled}
-          className={buttonClassesString}
-          style={{ width: '40%' }}
         >
           Отклонить
+        </button>
+        <button
+          className="card-link btn btn-secondary btn-sm"
+          onClick={() => dispatch(togglePreview())}
+        >
+          <img src={previewIcon} alt="Документ"></img>
         </button>
       </div>
     </div>
