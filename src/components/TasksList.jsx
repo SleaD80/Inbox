@@ -1,10 +1,10 @@
 import Task from './Task';
-import Search from './UI/Search';
+import Sort from './UI/Sort';
 
 const TasksList = ({ tasks, selectTask }) => {
   return (
     <>
-      <Search />
+      <Sort />
       {tasks.length !== 0 ? (
         <div
           style={{

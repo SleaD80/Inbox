@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import sortIcon from '../../assets/sort_icon.svg';
 import { sort } from '../../actions';
+import './Sort.css';
 
 export default function Sort() {
   const dispatch = useDispatch();
@@ -19,51 +20,31 @@ export default function Sort() {
     dispatch(sort(fieldName));
   };
   return (
-    <>
-      <div className="dropdown">
-        <button
-          onClick={toggleOpen}
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          style={{ minWidth: '115px', maxWidth: '115px', padding: '5px' }}
-        >
-          <img
-            src={sortIcon}
-            style={{ height: '20px', width: '20px', paddingRight: '5px' }}
-            alt=""
-          />
-          {buttonText}
+    <div className="nav nav-pills dropdown">
+      <button
+        onClick={toggleOpen}
+        className="nav-link dropdown-toggle show"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="true"
+      >
+        <img src={sortIcon} alt="" />
+        {buttonText}
+      </button>
+      <div
+        className={`dropdown-menu ${dropdown ? 'show' : ''}`}
+        data-popper-placement="bottom-start"
+      >
+        <button className="dropdown-item" onClick={() => itemPressed('author')}>
+          Автору
         </button>
-        <ul className={`dropdown-menu ${dropdown ? 'show' : ''}`}>
-          <li>
-            <button
-              className="dropdown-item"
-              onClick={() => itemPressed('author')}
-            >
-              Автору
-            </button>
-          </li>
-          <li>
-            <button
-              className="dropdown-item"
-              onClick={() => itemPressed('title')}
-            >
-              Теме
-            </button>
-          </li>
-          <li>
-            <button
-              className="dropdown-item"
-              onClick={() => itemPressed('date')}
-            >
-              Дате
-            </button>
-          </li>
-        </ul>
+        <button className="dropdown-item" onClick={() => itemPressed('title')}>
+          Теме
+        </button>
+        <button className="dropdown-item" onClick={() => itemPressed('date')}>
+          Дате
+        </button>
       </div>
-    </>
+    </div>
   );
 }
