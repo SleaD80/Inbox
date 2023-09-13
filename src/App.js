@@ -16,19 +16,7 @@ class App extends Component {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route
-              path="tasks"
-              element={
-                <Tasks
-                  resizable={true}
-                  resizerOptions={{
-                    minWidth: 300,
-                    disabledColumns: [0, 1],
-                    flush: true,
-                  }}
-                />
-              }
-            />
+            <Route path="tasks" element={<Tasks />} />
           </Route>
         </Routes>
       </Router>

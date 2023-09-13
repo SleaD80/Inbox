@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import TasksList from './TasksList';
 import TaskInfo from './TaskInfo';
@@ -8,7 +7,6 @@ import Header from './Header';
 import FiltersList from './FiltersList';
 import gripVerticalIcon from '../assets/grip-vertical.svg';
 import previewIcon from '../assets/file-text.svg';
-import ColumnResizer from 'column-resizer';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
 const filterFuncs = {
@@ -32,56 +30,8 @@ class Tasks extends Component {
     this.tableSelector = '#taskslayout';
   }
 
-  componentDidMount() {
-    if (this.props.resizable) {
-      this.enableResize();
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.props.resizable) {
-      this.disableResize();
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.resizable) {
-      this.enableResize();
-    }
-  }
-
-  UNSAFE_componentWillUpdate() {
-    if (this.props.resizable) {
-      this.disableResize();
-    }
-  }
-
-  enableResize() {
-    const options = this.props.resizerOptions;
-    if (!this.resizer) {
-      this.resizer = new ColumnResizer(
-        ReactDOM.findDOMNode(this).querySelector(`${this.tableSelector}`),
-        options
-      );
-    } else {
-      this.resizer.reset(options);
-    }
-  }
-
-  disableResize() {
-    if (this.resizer) {
-      this.resizer.reset({ disable: true });
-    }
-  }
-
   getStage(stageId) {
     return STAGES[stageId];
-  }
-
-  getPercentWidth(elId) {
-    const el = document.getElementById(elId);
-    const parent = el.offsetParent || el;
-    return ((el.offsetWidth / parent.offsetWidth) * 100).toFixed(2);
   }
 
   togglePreview() {
@@ -120,109 +70,82 @@ class Tasks extends Component {
       currentTask = tasks[0];
     }
     return (
-      <div style={{ overflowY: 'hidden' }}>
+      <>
         <Header />
-        <table id="taskslayout" style={{ width: '100%' }}>
-          <tbody>
-            <tr>
-              <td
-                style={{ width: '15%', minWidth: '15%', verticalAlign: 'top' }}
-                id="filtersPanel"
-              >
+        <div className="d-flex">
+          <div id="filtersPanel">
+            <FiltersList taskNumbers={this.props.tasks} />
+          </div>
+          <div
+            style={{ maxWidth: '20px', minWidth: '20px', cursor: 'pointer' }}
+            onClick={() => {
+              document.getElementById('filtersPanel').style.display = this.state
+                .filtersCollapsed
+                ? 'block'
+                : 'none';
+              this.setState({
+                filtersCollapsed: !this.state.filtersCollapsed,
+              });
+            }}
+          >
+            <img
+              src={gripVerticalIcon}
+              style={{
+                height: '35px',
+                width: '20px',
+                position: 'absolute',
+                top: '50%',
+              }}
+              alt=""
+            />
+          </div>
+          <div id="tasklistPanel">
+            <TasksList tasks={tasks} />
+          </div>
+          <div id="rightPanel">
+            <div
+              id="taskInfo"
+              className="container"
+              style={{
+                textAlign: 'left',
+                height: '40vh',
+              }}
+            >
+              <TaskInfo
+                currentTask={currentTask}
+                displayPreview={() => this.displayPreview.bind(this)}
+              />
+            </div>
+            <hr />
+            <div
+              id="previewPanel"
+              style={{
+                textAlign: 'center',
+                height: '40vh',
+              }}
+            >
+              {this.props.displayPreview ? (
+                <Preview
+                  togglePreview={() => this.togglePreview.bind(this)}
+                  status={this.state.previewExpanded}
+                  content={
+                    currentTask
+                      ? currentTask.content.map((item) =>
+                          require(`../data/${item}`)
+                        )
+                      : null
+                  }
+                />
+              ) : (
                 <div>
-                  <FiltersList taskNumbers={this.props.tasks} />
+                  Нажмите <img src={previewIcon} alt=""></img> для отображения
+                  предпросмотра документа
                 </div>
-              </td>
-              <td style={{ width: '20px', cursor: 'pointer' }}>
-                <div
-                  style={{ maxWidth: '20px', minWidth: '20px' }}
-                  onClick={() => {
-                    let filtersPanel = document.getElementById('filtersPanel');
-                    let tasklistPanel =
-                      document.getElementById('tasklistPanel');
-                    if (this.state.filtersCollapsed) {
-                      filtersPanel.style.width = '12%';
-                      tasklistPanel.style.width =
-                        (
-                          100 -
-                          this.getPercentWidth('rightPanel') -
-                          12
-                        ).toString() + '%';
-                    } else {
-                      filtersPanel.style.width = '0%';
-                    }
-                    this.setState({
-                      filtersCollapsed: !this.state.filtersCollapsed,
-                    });
-                  }}
-                >
-                  <img
-                    src={gripVerticalIcon}
-                    style={{
-                      height: '35px',
-                      width: '20px',
-                    }}
-                    alt=""
-                  />
-                </div>
-              </td>
-              <td
-                id="tasklistPanel"
-                style={{
-                  width: '40%',
-                  verticalAlign: 'top',
-                  borderRight: '1px dotted',
-                  borderColor: 'grey',
-                }}
-              >
-                <TasksList tasks={tasks} />
-              </td>
-              <td id="rightPanel" style={{ width: '45%' }}>
-                <div
-                  id="taskInfo"
-                  className="container"
-                  style={{
-                    textAlign: 'left',
-                    height: '40vh',
-                  }}
-                >
-                  <TaskInfo
-                    currentTask={currentTask}
-                    displayPreview={() => this.displayPreview.bind(this)}
-                  />
-                </div>
-                <hr />
-                <div
-                  id="previewPanel"
-                  style={{
-                    textAlign: 'center',
-                    height: '40vh',
-                  }}
-                >
-                  {this.props.displayPreview ? (
-                    <Preview
-                      togglePreview={() => this.togglePreview.bind(this)}
-                      status={this.state.previewExpanded}
-                      content={
-                        currentTask
-                          ? currentTask.content.map((item) =>
-                              require(`../data/${item}`)
-                            )
-                          : null
-                      }
-                    />
-                  ) : (
-                    <div>
-                      Нажмите <img src={previewIcon} alt=""></img> для
-                      отображения предпросмотра документа
-                    </div>
-                  )}
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 }
