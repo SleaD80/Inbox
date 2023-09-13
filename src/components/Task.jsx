@@ -1,6 +1,6 @@
-import './Task.css';
 import { useDispatch } from 'react-redux';
 import { selectTask } from '../actions';
+import styles from './Task.module.css';
 
 const months = [
   'Янв',
@@ -27,39 +27,25 @@ const colors = { Ok: 'black', Warn: 'orange', Error: 'red' };
 function Task(props) {
   const date = getDate(props.date);
   const dispatch = useDispatch();
-  const selectionWidth = props.active ? '3' : '0';
   const taskColor = colors[props.level];
-  let styles = {
-    borderLeft: `${selectionWidth}px solid green`,
-    marginLeft: '5px',
-  };
   return (
-    <div className="d-flex task task-container" style={styles}>
-      <div
-        className="col"
-        role="alert"
-        onClick={() => dispatch(selectTask(props.id))}
-      >
-        <small style={{ color: taskColor }}>{props.stage}</small>
-        <h4 style={{ color: taskColor }}>{props.title}</h4>
-        <small className="text-muted">Автор: {props.author}</small>
-        <p>{props.body}</p>
-      </div>
-      <div>
-        <div
-          className="row h-50"
-          style={{ marginTop: '15px', textAlign: 'center' }}
-        >
-          <div className="col-sm-8 align-items-center my-auto">
-            <h3 style={{ color: taskColor }}>{date.month}</h3>
-          </div>
+    <div
+      className={`${
+        props.active ? 'border-primary' : 'border-secondary'
+      } card mb-3`}
+      style={{ maxWidth: '30rem' }}
+      onClick={() => dispatch(selectTask(props.id))}
+    >
+      <div className="card-header">{props.stage}</div>
+      <div className="d-flex card-body">
+        <div className="col">
+          <h4 className="card-title">{props.title}</h4>
+          <small className="text-muted">Автор: {props.author}</small>
+          <p className={`card-text ${styles.pCut}`}>{props.body}</p>
         </div>
-        <div className="row">
-          <div
-            className="col-sm-8 align-items-center mx-auto my-auto"
-            style={{ textAlign: 'center' }}
-          >
-            <h3 style={{ color: taskColor }}>{date.date}</h3>
+        <div className={styles.dateBlock}>
+          <div>
+            <h5 style={{ color: taskColor }}>{`${date.month} ${date.date}`}</h5>
           </div>
         </div>
       </div>

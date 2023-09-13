@@ -126,7 +126,7 @@ class Tasks extends Component {
           <tbody>
             <tr>
               <td
-                style={{ width: '12%', minWidth: '12%', verticalAlign: 'top' }}
+                style={{ width: '15%', minWidth: '15%', verticalAlign: 'top' }}
                 id="filtersPanel"
               >
                 <div>
@@ -169,7 +169,7 @@ class Tasks extends Component {
               <td
                 id="tasklistPanel"
                 style={{
-                  width: '38%',
+                  width: '40%',
                   verticalAlign: 'top',
                   borderRight: '1px dotted',
                   borderColor: 'grey',
@@ -177,13 +177,13 @@ class Tasks extends Component {
               >
                 <TasksList tasks={tasks} />
               </td>
-              <td id="rightPanel" style={{ width: '50%' }}>
+              <td id="rightPanel" style={{ width: '45%' }}>
                 <div
                   id="taskInfo"
                   className="container"
                   style={{
                     textAlign: 'left',
-                    height: '35vh',
+                    height: '40vh',
                   }}
                 >
                   <TaskInfo
@@ -196,7 +196,7 @@ class Tasks extends Component {
                   id="previewPanel"
                   style={{
                     textAlign: 'center',
-                    height: '45vh',
+                    height: '40vh',
                   }}
                 >
                   {this.props.displayPreview ? (
