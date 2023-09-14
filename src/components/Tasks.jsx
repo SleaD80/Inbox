@@ -102,28 +102,15 @@ class Tasks extends Component {
           <div id="tasklistPanel">
             <TasksList tasks={tasks} />
           </div>
-          <div id="rightPanel">
-            <div
-              id="taskInfo"
-              className="container"
-              style={{
-                textAlign: 'left',
-                height: '40vh',
-              }}
-            >
+          <div id="rightPanel" className="container">
+            <div id="taskInfo">
               <TaskInfo
                 currentTask={currentTask}
                 displayPreview={() => this.displayPreview.bind(this)}
               />
             </div>
             <hr />
-            <div
-              id="previewPanel"
-              style={{
-                textAlign: 'center',
-                height: '40vh',
-              }}
-            >
+            <div id="previewPanel">
               {this.props.displayPreview ? (
                 <Preview
                   togglePreview={() => this.togglePreview.bind(this)}

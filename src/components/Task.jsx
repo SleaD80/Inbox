@@ -33,7 +33,7 @@ function Task(props) {
       className={`${
         props.active ? 'border-primary' : 'border-secondary'
       } card mb-3`}
-      style={{ maxWidth: '30rem' }}
+      style={{ maxWidth: '45rem' }}
       onClick={() => dispatch(selectTask(props.id))}
     >
       <div className="card-header">{props.stage}</div>
