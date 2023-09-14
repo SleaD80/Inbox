@@ -8,23 +8,15 @@ function Preview(props) {
         return { uri: item };
       })
     : [];
-
   return (props.content && props.content.length) > 0 ? (
     <>
       <div style={{ textAlign: 'right' }}>
-        <button
-          type="button"
-          className="btn rounded-circle"
-          style={{
-            width: '35px',
-            height: '35px',
-            marginRight: '10px',
-            boxShadow: '1px 1px grey',
-          }}
+        <img
+          src={props.status ? contractIcon : expandIcon}
+          alt=""
           onClick={props.togglePreview()}
-        >
-          <img src={props.status ? contractIcon : expandIcon} alt=""></img>
-        </button>
+          style={{ transform: 'translate(-15px, 0px)' }}
+        ></img>
       </div>
       <DocViewer
         documents={docs}
@@ -40,7 +32,7 @@ function Preview(props) {
         }}
         config={{
           header: {
-            disableHeader: false,
+            disableHeader: docs.length === 1,
             disableFileName: true,
             retainURLParams: false,
           },
