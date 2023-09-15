@@ -29,7 +29,7 @@ class Header extends Component {
                 >
                   Темы
                 </button>
-                <div className="dropdown-menu show">
+                <div className="dropdown-menu ">
                   <button
                     data-theme="materia"
                     className="dropdown-item theme-link"
