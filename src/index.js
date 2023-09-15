@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'bootswatch/dist/materia/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';

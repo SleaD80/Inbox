@@ -6,10 +6,30 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js"></script>
     <title>Inbox App</title>
-    <style></style>
   </head>
   <body style="overflow: hidden">
+    <script>
+      var themes = {
+        slate: 'tasks/slate/bootstrap.min.css',
+        cerulean: 'tasks/cerulean/bootstrap.min.css',
+        materia: 'tasks/materia/bootstrap.min.css',
+      };
+
+      $(function () {
+        var themesheet = $(
+          '<link href="' +
+            themes['slate'] +
+            '" type="text/css" rel="stylesheet" />'
+        );
+        themesheet.appendTo('head');
+        $('.theme-link').click(function () {
+          var themeurl = themes[$(this).attr('data-theme')];
+          themesheet.attr('href', themeurl);
+        });
+      });
+    </script>
     <div id="root" />
   </body>
 </html>

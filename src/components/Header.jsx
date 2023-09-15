@@ -6,7 +6,7 @@ class Header extends Component {
     return (
       <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div className="container-fluid">
-          <span className="navbar-brand">Меню</span>
+          <span className="navbar-brand">Задачи</span>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,11 +20,35 @@ class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <button className="nav-link active">
-                  Задачи
-                  <span className="visually-hidden">(current)</span>
+              <li className="nav-item dropdown">
+                <button
+                  className="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Темы
                 </button>
+                <div className="dropdown-menu show">
+                  <button
+                    data-theme="materia"
+                    className="dropdown-item theme-link"
+                  >
+                    Materia
+                  </button>
+                  <button
+                    data-theme="slate"
+                    className="dropdown-item theme-link"
+                  >
+                    Slate
+                  </button>
+                  <button
+                    data-theme="cerulean"
+                    className="dropdown-item theme-link"
+                  >
+                    Cerulean
+                  </button>
+                </div>
               </li>
             </ul>
             <form className="d-flex">
