@@ -45,7 +45,7 @@ function tasks(
       const index = state.tasks.findIndex((item) => item.id === action.taskId);
       let taskToChange = state.tasks[index];
       let levelFilterToDecrement = null;
-      if (taskToChange.level != 'Ok') {
+      if (taskToChange.level !== 'Ok') {
         levelFilterToDecrement =
           taskToChange.level === 'Warn' ? 'deadline' : 'overdue';
       }
