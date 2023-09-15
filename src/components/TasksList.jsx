@@ -1,5 +1,5 @@
 import Task from './Task';
-import Sort from './UI/Sort';
+import Sort from './Sort';
 
 const TasksList = ({ tasks, selectTask }) => {
   return (

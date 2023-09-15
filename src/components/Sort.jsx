@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { sort } from '../../actions';
-import sortIcon from '../../assets/sort_icon.svg';
-import Dropdown from './Dropdown';
+import { sort } from '../actions';
+import sortIcon from '../assets/sort_icon.svg';
+import Dropdown from './UI/Dropdown';
 import styles from './Sort.module.css';
 
 export default function Sort() {
