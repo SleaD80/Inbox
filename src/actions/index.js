@@ -6,6 +6,7 @@ export const SORT = 'SORT';
 export const SEARCH = 'SEARCH';
 export const FILTER = 'FILTER';
 export const TOGGLE_PREVIEW = 'TOGGLE_PREVIEW';
+export const CHANGE_THEME = 'CHANGE_THEME';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
@@ -44,4 +45,8 @@ export const applyFilter = (criterium) => {
 
 export const togglePreview = () => {
   return { type: TOGGLE_PREVIEW };
+};
+
+export const changeTheme = (theme) => {
+  return { type: CHANGE_THEME, theme: theme };
 };

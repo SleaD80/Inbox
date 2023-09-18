@@ -7,6 +7,7 @@ import {
   SEARCH,
   FILTER,
   TOGGLE_PREVIEW,
+  CHANGE_THEME,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -101,10 +102,20 @@ function displayPreview(state = false, action) {
   }
 }
 
+function theme(state = 'materia', action) {
+  switch (action.type) {
+    case CHANGE_THEME:
+      return action.theme;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   tasks,
   search,
   filterCriterium,
   displayPreview,
+  theme,
 });
 export default rootReducer;
