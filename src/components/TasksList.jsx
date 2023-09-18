@@ -1,14 +1,13 @@
 import Task from './Task';
-import Sort from './Sort';
 
 const TasksList = ({ tasks, selectTask }) => {
   return (
     <>
-      <Sort />
       {tasks.length !== 0 ? (
         <div
+          className="container"
           style={{
-            height: '80vh',
+            height: '90vh',
             overflowY: 'auto',
             overscrollBehavior: 'contain',
           }}
