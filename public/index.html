@@ -25,8 +25,8 @@
             '" type="text/css" rel="stylesheet" />'
         );
         themesheet.appendTo('head');
-        $('.theme-link').click(function () {
-          var themeurl = themes[$(this).attr('data-theme')];
+        $('#theme-selector .dropdown-item').click(function () {
+          var themeurl = themes[$(this).attr('value')];
           themesheet.attr('href', themeurl);
         });
       });

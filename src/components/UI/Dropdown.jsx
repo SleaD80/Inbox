@@ -1,6 +1,6 @@
 export default function Sort({ label, options, ...props }) {
   return (
-    <div className="nav-item" {...props}>
+    <div {...props}>
       <button
         className="nav-link dropdown-toggle"
         data-bs-toggle="dropdown"
@@ -14,6 +14,7 @@ export default function Sort({ label, options, ...props }) {
           return (
             <button
               key={option.id}
+              value={option.id}
               className="dropdown-item"
               onClick={option.handleClick}
             >

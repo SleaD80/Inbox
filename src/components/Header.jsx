@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from './UI/Search';
+import Dropdown from './UI/Dropdown';
 
 class Header extends Component {
   render() {
@@ -21,34 +22,15 @@ class Header extends Component {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav me-auto">
               <li className="nav-item dropdown">
-                <button
-                  className="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Темы
-                </button>
-                <div className="dropdown-menu ">
-                  <button
-                    data-theme="materia"
-                    className="dropdown-item theme-link"
-                  >
-                    Materia
-                  </button>
-                  <button
-                    data-theme="slate"
-                    className="dropdown-item theme-link"
-                  >
-                    Slate
-                  </button>
-                  <button
-                    data-theme="cerulean"
-                    className="dropdown-item theme-link"
-                  >
-                    Cerulean
-                  </button>
-                </div>
+                <Dropdown
+                  id="theme-selector"
+                  label="Темы"
+                  options={[
+                    { id: 'materia', label: 'Materia' },
+                    { id: 'slate', label: 'Slate' },
+                    { id: 'cerulean', label: 'Cerulean' },
+                  ]}
+                />
               </li>
             </ul>
             <form className="d-flex">
