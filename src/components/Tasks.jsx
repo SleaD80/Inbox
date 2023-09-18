@@ -103,33 +103,39 @@ class Tasks extends Component {
             <TasksList tasks={tasks} />
           </div>
           <div id="rightPanel" className="container">
-            <div id="taskInfo">
-              <TaskInfo
-                currentTask={currentTask}
-                displayPreview={() => this.displayPreview.bind(this)}
-              />
-            </div>
-            <hr />
-            <div id="previewPanel">
-              {this.props.displayPreview ? (
-                <Preview
-                  togglePreview={() => this.togglePreview.bind(this)}
-                  status={this.state.previewExpanded}
-                  content={
-                    currentTask
-                      ? currentTask.content.map((item) =>
-                          require(`../data/${item}`)
-                        )
-                      : null
-                  }
-                />
-              ) : (
-                <div>
-                  Нажмите <img src={previewIcon} alt=""></img> для отображения
-                  предпросмотра документа
+            {currentTask ? (
+              <>
+                <div id="taskInfo">
+                  <TaskInfo
+                    currentTask={currentTask}
+                    displayPreview={() => this.displayPreview.bind(this)}
+                  />
                 </div>
-              )}
-            </div>
+                <hr />
+                <div id="previewPanel">
+                  {this.props.displayPreview ? (
+                    <Preview
+                      togglePreview={() => this.togglePreview.bind(this)}
+                      status={this.state.previewExpanded}
+                      content={
+                        currentTask
+                          ? currentTask.content.map((item) =>
+                              require(`../data/${item}`)
+                            )
+                          : null
+                      }
+                    />
+                  ) : (
+                    <div>
+                      Нажмите <img src={previewIcon} alt=""></img> для
+                      отображения предпросмотра документа
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div style={{ textAlign: 'center' }}>Выберите задачу</div>
+            )}
           </div>
         </div>
       </>

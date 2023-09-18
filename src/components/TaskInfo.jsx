@@ -17,7 +17,7 @@ function TaskInfo(props) {
     setDisplayState(!displayState);
   };
 
-  return props.currentTask ? (
+  return (
     <div className="card">
       <div className="card-body">
         <h4 className="card-title">{props.currentTask.title}</h4>
@@ -55,8 +55,6 @@ function TaskInfo(props) {
         </button>
       </div>
     </div>
-  ) : (
-    <div style={{ textAlign: 'center' }}>Ни одной задачи не выбрано</div>
   );
 }
 
