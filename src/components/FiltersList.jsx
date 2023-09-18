@@ -41,16 +41,19 @@ const FiltersList = (props) => {
   ];
 
   return (
-    <ul className="list-group">
-      {filters.map((item) => (
-        <Filter
-          title={item.title}
-          number={item.number}
-          criterium={item.criterium}
-          key={item.id}
-        />
-      ))}
-    </ul>
+    <fieldset className="form-group">
+      <legend className="mt-4 container">Фильтрация</legend>
+      <ul className="list-group">
+        {filters.map((item) => (
+          <Filter
+            title={item.title}
+            number={item.number}
+            criterium={item.criterium}
+            key={item.id}
+          />
+        ))}
+      </ul>
+    </fieldset>
   );
 };
 

@@ -5,6 +5,7 @@ import TaskInfo from './TaskInfo';
 import Preview from './Preview';
 import Header from './Header';
 import FiltersList from './FiltersList';
+import SortList from './SortList';
 import gripVerticalIcon from '../assets/grip-vertical.svg';
 import previewIcon from '../assets/file-text.svg';
 
@@ -75,6 +76,7 @@ class Tasks extends Component {
         <div className="d-flex">
           <div id="filtersPanel">
             <FiltersList taskNumbers={this.props.tasks} />
+            <SortList />
           </div>
           <div
             style={{ maxWidth: '20px', minWidth: '20px', cursor: 'pointer' }}
