@@ -14,10 +14,10 @@ function ThemeProvider(props) {
 
   useEffect(() => {
     const styles = Array.from(document.querySelectorAll('style'));
-    styles.forEach((item) => (item.disabled = true));
     let bootswatchStyles = styles.filter((item) =>
       /Bootswatch/.test(item.innerText)
     );
+    bootswatchStyles.forEach((item) => (item.disabled = true));
     if (bootswatchStyles.length === 0) {
       const storedTheme = localStorage.getItem('theme');
       if (storedTheme) {
