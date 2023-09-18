@@ -1,4 +1,4 @@
-import Sort from '../components/UI/Sort';
+import Sort from '../components/Sort';
 
 export default {
   title: 'Inbox/Sort',

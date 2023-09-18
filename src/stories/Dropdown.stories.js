@@ -15,7 +15,6 @@ export default {
   },
 };
 
-// TODO Add Bootstrap js Plugin
 export const Default = {
   args: {
     label: 'Выпадающий список',
