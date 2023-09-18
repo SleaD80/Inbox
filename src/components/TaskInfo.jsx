@@ -7,10 +7,10 @@ import './TaskInfo.css';
 function TaskInfo(props) {
   const dispatch = useDispatch();
   const displayStates = { true: 'Кратко', false: 'Подробнее' };
-  const [displayState, setDisplayState] = useState(false);
+  const [displayState, setDisplayState] = useState(true);
 
   useEffect(() => {
-    setDisplayState(false);
+    setDisplayState(true);
   }, [props.currentTask?.id]);
 
   const expandCollapseBody = () => {
