@@ -9,7 +9,7 @@ export default function Sort({ label, options, ...props }) {
       >
         {label}
       </button>
-      <div className={'dropdown-menu'}>
+      <div className={'dropdown-menu bg-light'}>
         {options?.map((option) => {
           return (
             <button
