@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TasksList from './TasksList';
 import TaskInfo from './TaskInfo';
-import Preview from './Preview';
 import Header from './Header';
 import FiltersList from './FiltersList';
 import SortList from './SortList';
 import gripVerticalIcon from '../assets/grip-vertical.svg';
-import previewIcon from '../assets/file-text.svg';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
 const filterFuncs = {
@@ -106,35 +104,12 @@ class Tasks extends Component {
           </div>
           <div id="rightPanel" className="container">
             {currentTask ? (
-              <>
-                <div id="taskInfo">
-                  <TaskInfo
-                    currentTask={currentTask}
-                    displayPreview={() => this.displayPreview.bind(this)}
-                  />
-                </div>
-                <hr />
-                <div id="previewPanel">
-                  {this.props.displayPreview ? (
-                    <Preview
-                      togglePreview={() => this.togglePreview.bind(this)}
-                      status={this.state.previewExpanded}
-                      content={
-                        currentTask
-                          ? currentTask.content.map((item) =>
-                              require(`../data/${item}`)
-                            )
-                          : null
-                      }
-                    />
-                  ) : (
-                    <div>
-                      Нажмите <img src={previewIcon} alt=""></img> для
-                      отображения предпросмотра документа
-                    </div>
-                  )}
-                </div>
-              </>
+              <div id="taskInfo">
+                <TaskInfo
+                  currentTask={currentTask}
+                  displayPreview={() => this.displayPreview.bind(this)}
+                />
+              </div>
             ) : (
               <div style={{ textAlign: 'center' }}>Выберите задачу</div>
             )}
