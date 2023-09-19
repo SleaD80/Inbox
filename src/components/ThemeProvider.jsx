@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadStoredTheme } from '../actions';
+import { changeTheme } from '../actions';
 
 function ThemeProvider(props) {
   const themes = {
@@ -18,7 +18,7 @@ function ThemeProvider(props) {
       const storedTheme = localStorage.getItem('theme');
       if (storedTheme) {
         currentTheme = storedTheme;
-        dispatch(loadStoredTheme(currentTheme));
+        dispatch(changeTheme(currentTheme));
       }
       themeSheet = document.createElement('link');
       themeSheet.id = 'themeSheet';
