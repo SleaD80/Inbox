@@ -18,6 +18,7 @@ const SortList = () => {
         {Object.keys(options).map((key) => {
           return (
             <li
+              key={key}
               className={`${
                 sortOption === key ? 'list-group-item-primary' : ''
               } list-group-item d-flex justify-content-between align-items-center`}
