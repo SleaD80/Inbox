@@ -6,8 +6,8 @@ import {
   SORT,
   SEARCH,
   FILTER,
-  TOGGLE_PREVIEW,
   CHANGE_THEME,
+  LOAD_STORED_THEME,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -91,21 +91,10 @@ function filterCriterium(state = 'all', action) {
   }
 }
 
-function displayPreview(state = false, action) {
-  switch (action.type) {
-    case SELECT_TASK:
-    case FILTER:
-      return false;
-    case TOGGLE_PREVIEW:
-      return !state;
-    default:
-      return state;
-  }
-}
-
 function theme(state = 'materia', action) {
   switch (action.type) {
     case CHANGE_THEME:
+    case LOAD_STORED_THEME:
       return action.theme;
     default:
       return state;
@@ -116,7 +105,6 @@ const rootReducer = combineReducers({
   tasks,
   search,
   filterCriterium,
-  displayPreview,
   theme,
 });
 export default rootReducer;
