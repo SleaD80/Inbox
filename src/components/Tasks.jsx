@@ -22,8 +22,6 @@ class Tasks extends Component {
     super(props);
     this.state = {
       filtersCollapsed: false,
-      previewExpanded: false,
-      displayPreview: false,
       rightPanelWidth: 0,
     };
     this.tableSelector = '#taskslayout';
@@ -31,29 +29,6 @@ class Tasks extends Component {
 
   getStage(stageId) {
     return STAGES[stageId];
-  }
-
-  togglePreview() {
-    let filtersPanel = document.getElementById('filtersPanel');
-    let tasklistPanel = document.getElementById('tasklistPanel');
-    let taskinfoPanel = document.getElementById('taskInfo');
-    let previewPanel = document.getElementById('previewPanel');
-    let rightPanel = document.getElementById('rightPanel');
-    if (!this.state.previewExpanded) {
-      this.setState({ rightPanelWidth: rightPanel.style.width }, () => {
-        filtersPanel.hidden = true;
-        tasklistPanel.hidden = true;
-        taskinfoPanel.hidden = true;
-        previewPanel.style.height = '80vh';
-      });
-    } else {
-      filtersPanel.hidden = false;
-      tasklistPanel.hidden = false;
-      taskinfoPanel.hidden = false;
-      previewPanel.style.height = '45vh';
-      rightPanel.style.width = this.state.rightPanelWidth;
-    }
-    this.setState({ previewExpanded: !this.state.previewExpanded });
   }
 
   render() {
@@ -105,10 +80,7 @@ class Tasks extends Component {
           <div id="rightPanel" className="container">
             {currentTask ? (
               <div id="taskInfo">
-                <TaskInfo
-                  currentTask={currentTask}
-                  displayPreview={() => this.displayPreview.bind(this)}
-                />
+                <TaskInfo currentTask={currentTask} />
               </div>
             ) : (
               <div style={{ textAlign: 'center' }}>Выберите задачу</div>
@@ -125,8 +97,6 @@ function mapStateToProps(state) {
     tasks: state.tasks,
     search: state.search,
     filterCriterium: state.filterCriterium,
-    previewExpanded: state.togglePreview,
-    displayPreview: state.displayPreview,
   };
 }
 

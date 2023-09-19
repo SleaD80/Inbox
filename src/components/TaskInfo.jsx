@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { closeTask, togglePreview } from '../actions';
+import { closeTask } from '../actions';
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import './TaskInfo.css';
 
