@@ -8,7 +8,7 @@ function Search() {
   return (
     <input
       type="search"
-      className="form-control bg-light"
+      className="form-control"
       placeholder="Поиск"
       onChange={(e) => dispatch(search(e.target.value))}
     />

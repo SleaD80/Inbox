@@ -7,7 +7,7 @@ import { changeTheme } from '../actions';
 function Header() {
   const dispatch = useDispatch();
   return (
-    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
       <div className="container-fluid">
         <span className="navbar-brand">Задачи</span>
         <button
