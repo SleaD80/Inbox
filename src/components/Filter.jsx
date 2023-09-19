@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from '../actions';
-import './Filter.css';
 
 const Filter = (props) => {
   const { criterium, title, number } = props;
