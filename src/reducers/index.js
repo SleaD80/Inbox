@@ -95,6 +95,7 @@ function filterCriterium(state = 'all', action) {
 function displayPreview(state = false, action) {
   switch (action.type) {
     case SELECT_TASK:
+    case FILTER:
       return false;
     case TOGGLE_PREVIEW:
       return !state;
