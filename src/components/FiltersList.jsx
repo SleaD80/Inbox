@@ -1,4 +1,5 @@
 import Filter from './Filter';
+import styles from './FiltersList.module.css';
 
 const FiltersList = (props) => {
   const filters = [
@@ -28,7 +29,7 @@ const FiltersList = (props) => {
     },
     {
       id: 4,
-      title: 'Приближается дедлайн',
+      title: 'Срочные',
       number: props.taskNumbers.deadline,
       criterium: 'deadline',
     },
@@ -41,9 +42,9 @@ const FiltersList = (props) => {
   ];
 
   return (
-    <fieldset className="form-group">
-      <legend className="mt-4 container">Фильтрация</legend>
-      <ul className="list-group">
+    <fieldset className="form-group container">
+      <legend className="mt-4">Фильтрация</legend>
+      <div className={`btn-group-vertical ${styles.filtersList}`}>
         {filters.map((item) => (
           <Filter
             title={item.title}
@@ -52,7 +53,7 @@ const FiltersList = (props) => {
             key={item.id}
           />
         ))}
-      </ul>
+      </div>
     </fieldset>
   );
 };

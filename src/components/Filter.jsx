@@ -7,17 +7,18 @@ const Filter = (props) => {
   const dispatch = useDispatch();
   const filterCriterium = useSelector((store) => store.filterCriterium);
   return (
-    <li
+    <button
+      type="button"
       className={`${
-        criterium === filterCriterium ? 'list-group-item-primary' : ''
-      } list-group-item d-flex justify-content-between align-items-center`}
+        criterium === filterCriterium ? 'btn-primary' : 'btn-secondary'
+      } btn btn-sm d-flex justify-content-between align-items-center`}
       onClick={() => {
         dispatch(applyFilter(criterium));
       }}
     >
       {title}
       <span className="badge bg-primary rounded-pill">{number}</span>
-    </li>
+    </button>
   );
 };
 

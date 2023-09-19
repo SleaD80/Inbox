@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { sort } from '../actions';
+import styles from './FiltersList.module.css';
 
 const SortList = () => {
   const dispatch = useDispatch();
@@ -12,26 +13,27 @@ const SortList = () => {
   };
 
   return (
-    <fieldset className="form-group">
-      <legend className="mt-4 container">Сортировка</legend>
-      <ul className="list-group">
+    <fieldset className="form-group container">
+      <legend className="mt-4">Сортировка</legend>
+      <div className={`btn-group-vertical ${styles.filtersList}`}>
         {Object.keys(options).map((key) => {
           return (
-            <li
+            <button
+              type="button"
               key={key}
               className={`${
-                sortOption === key ? 'list-group-item-primary' : ''
-              } list-group-item d-flex justify-content-between align-items-center`}
+                sortOption === key ? 'btn-primary' : 'btn-secondary'
+              } btn btn-sm d-flex justify-content-between align-items-center`}
               onClick={() => {
                 setSortOption(key);
                 dispatch(sort(key));
               }}
             >
               {options[key]}
-            </li>
+            </button>
           );
         })}
-      </ul>
+      </div>
     </fieldset>
   );
 };
