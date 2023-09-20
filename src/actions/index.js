@@ -29,10 +29,14 @@ export const fetchTasks = () => async (dispatch) => {
 export const userLogin =
   (login, password, rememberUser) => async (dispatch) => {
     try {
-      const result = await axios.post('/api/dctm/v1/login', {
-        userName: login,
-        password: password,
-      });
+      const result = await axios.post(
+        '/api/dctm/v1/login',
+        {
+          userName: login,
+          password: password,
+        },
+        { timeout: 3000 }
+      );
       const data = result.data.data[0];
       const profile = data.userTicket
         ? {

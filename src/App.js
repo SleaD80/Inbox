@@ -4,18 +4,24 @@ import ThemeProvider from './components/ThemeProvider';
 import './App.css';
 import MainLayout from './layouts/MainLayout';
 import Login from './layouts/Login';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  Navigate,
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTasks, restoreSession } from './actions';
 
 class App extends Component {
-  async componentDidMount() {
-    await this.props.fetchTasks();
+  constructor(props) {
+    super(props);
+    this.props.restoreSession();
   }
 
-  UNSAFE_componentWillMount() {
-    this.props.restoreSession();
+  async componentDidMount() {
+    await this.props.fetchTasks();
   }
 
   render() {
@@ -23,7 +29,25 @@ class App extends Component {
       <ThemeProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Login />}></Route>
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={this.props.authenticated ? '/app/tasks' : '/login'}
+                  replace
+                />
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                !this.props.authenticated ? (
+                  <Login />
+                ) : (
+                  <Navigate to="/app/tasks" />
+                )
+              }
+            ></Route>
             <Route element={<RequireAuth />}>
               <Route path="/app" element={<MainLayout />}>
                 <Route path="tasks" element={<Tasks />} />
@@ -35,4 +59,9 @@ class App extends Component {
     );
   }
 }
-export default connect(null, { fetchTasks, restoreSession })(App);
+function mapStateToProps(state) {
+  return {
+    authenticated: state.userProfile.authenticated,
+  };
+}
+export default connect(mapStateToProps, { fetchTasks, restoreSession })(App);

@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../actions';
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [login, setLogin] = useState('');
@@ -23,9 +21,10 @@ function Login() {
     setRememberUser(e.target.checked);
   };
 
-  const handleSubmit = async () => {
-    await dispatch(userLogin(login, password, rememberUser));
-    navigate('app/tasks');
+  const handleSubmit = () => {
+    dispatch(userLogin(login, password, rememberUser));
+    setLogin('');
+    setPassword('');
   };
 
   return (
@@ -46,6 +45,7 @@ function Login() {
                     id="typeEmailX-2"
                     placeholder="Имя пользователя"
                     className="form-control form-control-lg"
+                    value={login}
                     onChange={handleLogin}
                   />
                 </div>
@@ -56,6 +56,7 @@ function Login() {
                     id="typePasswordX-2"
                     className="form-control form-control-lg"
                     placeholder="Пароль"
+                    value={password}
                     onChange={handlePassword}
                   />
                 </div>

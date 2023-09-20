@@ -2,7 +2,7 @@
   "name": "99-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/app/tasks",
+  "homepage": "/",
   "proxy": "http://10.100.103.39:88",
   "dependencies": {
     "@cyntler/react-doc-viewer": "^1.13.0",

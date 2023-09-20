@@ -4,9 +4,9 @@ import { changeTheme } from '../actions';
 
 function ThemeProvider(props) {
   const themes = {
-    slate: '/app/tasks/slate/bootstrap.min.css',
-    cerulean: '/app/tasks/cerulean/bootstrap.min.css',
-    materia: '/app/tasks/materia/bootstrap.min.css',
+    slate: '/slate/bootstrap.min.css',
+    cerulean: '/cerulean/bootstrap.min.css',
+    materia: '/materia/bootstrap.min.css',
   };
 
   let currentTheme = useSelector((store) => store.theme);
