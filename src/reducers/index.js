@@ -8,6 +8,8 @@ import {
   FILTER,
   CHANGE_THEME,
   LOAD_STORED_THEME,
+  LOGIN,
+  RESTORE_SESSION,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -101,10 +103,21 @@ function theme(state = 'materia', action) {
   }
 }
 
+function userProfile(state = { authenticated: false }, action) {
+  switch (action.type) {
+    case LOGIN:
+    case RESTORE_SESSION:
+      return action.profile;
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   tasks,
   search,
   filterCriterium,
   theme,
+  userProfile,
 });
 export default rootReducer;
