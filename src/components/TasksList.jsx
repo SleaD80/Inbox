@@ -5,7 +5,6 @@ const TasksList = ({ tasks, selectTask }) => {
     <>
       {tasks.length !== 0 ? (
         <div
-          className="container"
           style={{
             height: '90vh',
             overflowY: 'auto',

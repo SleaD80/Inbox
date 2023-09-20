@@ -74,7 +74,7 @@ class Tasks extends Component {
               alt=""
             />
           </div>
-          <div id="tasklistPanel">
+          <div id="tasklistPanel" className="container col-4">
             <TasksList tasks={tasks} />
           </div>
           <div id="rightPanel" className="container">
