@@ -1,13 +1,18 @@
-//import React, { Component } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Search from './UI/Search';
 import Dropdown from './UI/Dropdown';
 import { changeTheme } from '../actions';
 
 function Header() {
   const dispatch = useDispatch();
+  const theme = useSelector((store) => store.theme);
+  const dataBsTheme = theme === 'slate' ? 'dark' : 'light';
+
   return (
-    <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <nav
+      className={`navbar navbar-expand-lg bg-${dataBsTheme}`}
+      data-bs-theme={dataBsTheme}
+    >
       <div className="container-fluid">
         <span className="navbar-brand">Задачи</span>
         <button
