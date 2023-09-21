@@ -1,4 +1,4 @@
-export default function Sort({ label, options, ...props }) {
+export default function Dropdown({ label, options, ...props }) {
   return (
     <div {...props}>
       <button
@@ -9,7 +9,7 @@ export default function Sort({ label, options, ...props }) {
       >
         {label}
       </button>
-      <div className={'dropdown-menu'}>
+      <div className={'dropdown-menu'} style={props.style}>
         {options?.map((option) => {
           return (
             <button

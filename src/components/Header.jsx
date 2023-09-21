@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import Search from './UI/Search';
 import Dropdown from './UI/Dropdown';
+import Logout from './Logout';
 import { changeTheme } from '../actions';
 
 function Header() {
@@ -55,6 +56,19 @@ function Header() {
           <form className="d-flex">
             <Search />
           </form>
+          <div className="d-flex">
+            <ul
+              className="nav navbar-right"
+              style={{
+                marginLeft: '5px',
+                minWidth: '100px',
+              }}
+            >
+              <li className="nav-item dropdown">
+                <Logout />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
