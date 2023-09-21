@@ -9,7 +9,9 @@ export const FILTER = 'FILTER';
 export const CHANGE_THEME = 'CHANGE_THEME';
 export const LOAD_STORED_THEME = 'LOAD_STORED_THEME';
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 export const RESTORE_SESSION = 'RESTORE_SESSION';
+export const USER_INFO = 'USER_INFO';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
@@ -50,6 +52,7 @@ export const userLogin =
         profile: profile,
       });
       if (profile.authenticated) {
+        await dispatch(userInfo());
         sessionStorage.setItem('session', JSON.stringify(profile));
         if (rememberUser) {
           localStorage.setItem('session', JSON.stringify(profile));
@@ -62,6 +65,43 @@ export const userLogin =
       });
     }
   };
+
+export const userInfo = () => async (dispatch, getState) => {
+  try {
+    const userProfile = getState().userProfile;
+    const username = userProfile.username;
+    const ticket = userProfile.ticket;
+    const result = await axios.get('/api/dctm/v1/userInfo', {
+      params: {
+        user: username,
+      },
+      headers: {
+        'Dctm-Ticket': ticket,
+      },
+      timeout: 3000,
+    });
+    const data = result.data.data[0];
+    if (data.id) {
+      dispatch({
+        type: USER_INFO,
+        address: data.address,
+        fullname: data.description,
+      });
+    } else {
+      dispatch(logout());
+    }
+  } catch (e) {
+    dispatch({
+      type: null,
+    });
+  }
+};
+
+export const logout = () => {
+  delete sessionStorage.session;
+  delete localStorage.session;
+  return { type: LOGOUT };
+};
 
 export const restoreSession = () => {
   const session =

@@ -9,7 +9,9 @@ import {
   CHANGE_THEME,
   LOAD_STORED_THEME,
   LOGIN,
+  LOGOUT,
   RESTORE_SESSION,
+  USER_INFO,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -108,6 +110,10 @@ function userProfile(state = { authenticated: false }, action) {
     case LOGIN:
     case RESTORE_SESSION:
       return action.profile;
+    case USER_INFO:
+      return { ...state, address: action.address, fullname: action.fullname };
+    case LOGOUT:
+      return { authenticated: false };
     default:
       return state;
   }

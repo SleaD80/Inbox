@@ -12,12 +12,13 @@ import {
 } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTasks, restoreSession } from './actions';
+import { fetchTasks, restoreSession, userInfo } from './actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.props.restoreSession();
+    this.props.userInfo();
   }
 
   async componentDidMount() {
@@ -64,4 +65,8 @@ function mapStateToProps(state) {
     authenticated: state.userProfile.authenticated,
   };
 }
-export default connect(mapStateToProps, { fetchTasks, restoreSession })(App);
+export default connect(mapStateToProps, {
+  fetchTasks,
+  restoreSession,
+  userInfo,
+})(App);
