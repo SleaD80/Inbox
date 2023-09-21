@@ -22,9 +22,11 @@ function Login() {
   };
 
   const handleSubmit = () => {
-    dispatch(userLogin(login, password, rememberUser));
-    setLogin('');
-    setPassword('');
+    if (login.length > 0) {
+      dispatch(userLogin(login, password, rememberUser));
+      setLogin('');
+      setPassword('');
+    }
   };
 
   return (
