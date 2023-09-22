@@ -16,7 +16,7 @@ import {
 
 function clearSelection(arr) {
   return arr.map((item) => {
-    return { ...item, active: 0 };
+    return { ...item, active: 0, stage: 0 };
   });
 }
 

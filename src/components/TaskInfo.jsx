@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { closeTask } from '../actions';
+import { getDate } from '../helpers';
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import './TaskInfo.css';
 
@@ -8,6 +9,13 @@ function TaskInfo(props) {
   const dispatch = useDispatch();
   const displayStates = { true: 'Кратко', false: 'Подробнее' };
   const [displayState, setDisplayState] = useState(true);
+
+  const constructDate = (timestamp) => {
+    const dateObj = getDate(timestamp);
+    return `${dateObj.date} ${dateObj.month} ${dateObj.year}`;
+  };
+  const dateSent = constructDate(props.currentTask.dateSent);
+  const dueDate = constructDate(props.currentTask.dueDate);
 
   useEffect(() => {
     setDisplayState(true);
@@ -21,6 +29,13 @@ function TaskInfo(props) {
     <div className="card">
       <div className="card-body">
         <h4 className="card-title">{props.currentTask.title}</h4>
+        <span
+          style={{ marginRight: '10px', marginBottom: '15px' }}
+          className="badge bg-secondary"
+        >
+          {`От ${dateSent}`}
+        </span>
+        <span className="badge bg-secondary">{`Выполнить до ${dueDate}`}</span>
         <h6 className="card-subtitle mb-2 text-muted">
           {props.currentTask.stage}
         </h6>
@@ -77,9 +92,10 @@ function TaskInfo(props) {
           </div>
           <div className="offcanvas-body">
             <DocViewer
-              documents={props.currentTask.content.map((item) => {
-                return { uri: require(`../data/${item}`) };
-              })}
+              documents={[]}
+              //documents={props.currentTask.content.map((item) => {
+              //return { uri: require(`../data/${item}`) };
+              //})}
               pluginRenderers={DocViewerRenderers}
               config={{
                 header: {

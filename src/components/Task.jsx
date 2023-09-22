@@ -1,33 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { selectTask } from '../actions';
 import styles from './Task.module.css';
-
-const months = [
-  'Янв',
-  'Фев',
-  'Мар',
-  'Апр',
-  'Май',
-  'Июн',
-  'Июл',
-  'Авг',
-  'Сен',
-  'Окт',
-  'Ноя',
-  'Дек',
-];
-
-const getDate = (timestamp) => {
-  const currentDate = new Date(timestamp);
-  return { month: months[currentDate.getMonth()], date: currentDate.getDate() };
-};
-
-const colors = { Ok: 'black', Warn: 'orange', Error: 'red' };
+import { getDate, getColor } from '../helpers';
 
 function Task(props) {
-  const date = getDate(props.date);
+  const date = getDate(props.dateSent);
   const dispatch = useDispatch();
-  const taskColor = colors[props.level];
+  const taskColor = getColor(props.dueDate);
   return (
     <div
       className={`${

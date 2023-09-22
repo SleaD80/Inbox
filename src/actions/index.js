@@ -13,20 +13,46 @@ export const LOGOUT = 'LOGOUT';
 export const RESTORE_SESSION = 'RESTORE_SESSION';
 export const USER_INFO = 'USER_INFO';
 
-export const fetchTasks = () => async (dispatch) => {
+export const fetchTasks = () => async (dispatch, getState) => {
   try {
-    const result = data.sort((a, b) => a.title.localeCompare(b.title));
+    const userProfile = getState().userProfile;
+    const username = userProfile.username;
+    const ticket = userProfile.ticket;
+    const result = await axios.get('/api/dctm/v1/tasks', {
+      params: {
+        user: username,
+      },
+      headers: {
+        'Dctm-Ticket': ticket,
+      },
+      timeout: 3000,
+    });
+    const data = result.data.data;
     dispatch({
       type: FETCH_TASKS,
-      tasks: result,
+      tasks: data,
     });
   } catch (e) {
     dispatch({
-      type: FETCH_TASKS,
-      tasks: [],
+      type: null,
     });
   }
 };
+
+//export const fetchTasks = () => async (dispatch) => {
+//try {
+//const result = data.sort((a, b) => a.title.localeCompare(b.title));
+//dispatch({
+//type: FETCH_TASKS,
+//tasks: result,
+//});
+//} catch (e) {
+//dispatch({
+//type: FETCH_TASKS,
+//tasks: [],
+//});
+//}
+//};
 
 export const userLogin =
   (login, password, rememberUser) => async (dispatch) => {
@@ -53,6 +79,7 @@ export const userLogin =
       });
       if (profile.authenticated) {
         await dispatch(userInfo());
+        await dispatch(fetchTasks());
         sessionStorage.setItem('session', JSON.stringify(profile));
         if (rememberUser) {
           localStorage.setItem('session', JSON.stringify(profile));
