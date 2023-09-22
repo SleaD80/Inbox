@@ -12,6 +12,7 @@ import {
   LOGOUT,
   RESTORE_SESSION,
   USER_INFO,
+  DOWNLOAD_ATTACHMENT,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -119,11 +120,25 @@ function userProfile(state = { authenticated: false }, action) {
   }
 }
 
+function attachments(state = [], action) {
+  switch (action.type) {
+    case DOWNLOAD_ATTACHMENT:
+      return [...state, action.item];
+    case SELECT_TASK:
+    case FILTER:
+    case LOGOUT:
+      return [];
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   tasks,
   search,
   filterCriterium,
   theme,
   userProfile,
+  attachments,
 });
 export default rootReducer;

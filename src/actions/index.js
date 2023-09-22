@@ -1,5 +1,5 @@
-import data from '../data/tasks';
 import axios from 'axios';
+import { base64ToArrayBuffer } from '../helpers';
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const CLOSE_TASK = 'CLOSE_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
@@ -12,6 +12,36 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const RESTORE_SESSION = 'RESTORE_SESSION';
 export const USER_INFO = 'USER_INFO';
+export const DOWNLOAD_ATTACHMENT = 'DOWNLOAD_ATTACHMENT';
+
+const downloadAttachment = (id) => async (dispatch, getState) => {
+  try {
+    const userProfile = getState().userProfile;
+    const ticket = userProfile.ticket;
+    const result = await axios.get('/api/dctm/v1/content', {
+      params: {
+        objectId: id,
+      },
+      headers: {
+        'Dctm-Ticket': ticket,
+      },
+      timeout: 3000,
+    });
+    const data = result.data.data[0].data;
+    const blob = new Blob([base64ToArrayBuffer(data)], {
+      type: 'application/pdf',
+    });
+    dispatch({ type: DOWNLOAD_ATTACHMENT, item: URL.createObjectURL(blob) });
+  } catch (e) {
+    dispatch({ type: null });
+  }
+};
+
+export const downloadAttachments = (contentArr) => async (dispatch) => {
+  for (let item of contentArr) {
+    dispatch(downloadAttachment(item.id));
+  }
+};
 
 export const fetchTasks = () => async (dispatch, getState) => {
   try {
@@ -38,21 +68,6 @@ export const fetchTasks = () => async (dispatch, getState) => {
     });
   }
 };
-
-//export const fetchTasks = () => async (dispatch) => {
-//try {
-//const result = data.sort((a, b) => a.title.localeCompare(b.title));
-//dispatch({
-//type: FETCH_TASKS,
-//tasks: result,
-//});
-//} catch (e) {
-//dispatch({
-//type: FETCH_TASKS,
-//tasks: [],
-//});
-//}
-//};
 
 export const userLogin =
   (login, password, rememberUser) => async (dispatch) => {

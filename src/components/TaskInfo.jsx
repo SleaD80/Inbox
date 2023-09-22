@@ -1,12 +1,13 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { closeTask } from '../actions';
+import { closeTask, downloadAttachments } from '../actions';
 import { getDate } from '../helpers';
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import './TaskInfo.css';
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
+  const attachments = useSelector((store) => store.attachments);
   const displayStates = { true: 'Кратко', false: 'Подробнее' };
   const [displayState, setDisplayState] = useState(true);
 
@@ -18,6 +19,7 @@ function TaskInfo(props) {
   const dueDate = constructDate(props.currentTask.dueDate);
 
   useEffect(() => {
+    dispatch(downloadAttachments(props.currentTask.content));
     setDisplayState(true);
   }, [props.currentTask?.id]);
 
@@ -92,10 +94,9 @@ function TaskInfo(props) {
           </div>
           <div className="offcanvas-body">
             <DocViewer
-              documents={[]}
-              //documents={props.currentTask.content.map((item) => {
-              //return { uri: require(`../data/${item}`) };
-              //})}
+              documents={attachments.map((item) => {
+                return { uri: item };
+              })}
               pluginRenderers={DocViewerRenderers}
               config={{
                 header: {
