@@ -12,36 +12,41 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const RESTORE_SESSION = 'RESTORE_SESSION';
 export const USER_INFO = 'USER_INFO';
-export const DOWNLOAD_ATTACHMENT = 'DOWNLOAD_ATTACHMENT';
+export const DOWNLOAD_ATTACHMENTS = 'DOWNLOAD_ATTACHMENTS';
 
-const downloadAttachment = (id) => async (dispatch, getState) => {
-  try {
-    const userProfile = getState().userProfile;
-    const ticket = userProfile.ticket;
-    const result = await axios.get('/api/dctm/v1/content', {
-      params: {
-        objectId: id,
-      },
-      headers: {
-        'Dctm-Ticket': ticket,
-      },
-      timeout: 3000,
-    });
-    const data = result.data.data[0].data;
-    const blob = new Blob([base64ToArrayBuffer(data)], {
-      type: 'application/pdf',
-    });
-    dispatch({ type: DOWNLOAD_ATTACHMENT, item: URL.createObjectURL(blob) });
-  } catch (e) {
-    dispatch({ type: null });
-  }
-};
-
-export const downloadAttachments = (contentArr) => async (dispatch) => {
-  for (let item of contentArr) {
-    dispatch(downloadAttachment(item.id));
-  }
-};
+export const downloadAttachments =
+  (taskId, content) => async (dispatch, getState) => {
+    try {
+      if (!getState().attachments.taskId) {
+        let contentArr = [];
+        for (let item of content) {
+          const userProfile = getState().userProfile;
+          const ticket = userProfile.ticket;
+          const result = await axios.get('/api/dctm/v1/content', {
+            params: {
+              objectId: item.id,
+            },
+            headers: {
+              'Dctm-Ticket': ticket,
+            },
+            timeout: 3000,
+          });
+          const data = result.data.data[0].data;
+          const blob = new Blob([base64ToArrayBuffer(data)], {
+            type: 'application/pdf',
+          });
+          contentArr.push(URL.createObjectURL(blob));
+        }
+        dispatch({
+          type: DOWNLOAD_ATTACHMENTS,
+          taskId: taskId,
+          content: contentArr,
+        });
+      }
+    } catch (e) {
+      dispatch({ type: null });
+    }
+  };
 
 export const fetchTasks = () => async (dispatch, getState) => {
   try {
@@ -142,6 +147,7 @@ export const userInfo = () => async (dispatch, getState) => {
 export const logout = () => {
   delete sessionStorage.session;
   delete localStorage.session;
+  window.location.reload();
   return { type: LOGOUT };
 };
 

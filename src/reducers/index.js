@@ -9,10 +9,9 @@ import {
   CHANGE_THEME,
   LOAD_STORED_THEME,
   LOGIN,
-  LOGOUT,
   RESTORE_SESSION,
   USER_INFO,
-  DOWNLOAD_ATTACHMENT,
+  DOWNLOAD_ATTACHMENTS,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -113,21 +112,17 @@ function userProfile(state = { authenticated: false }, action) {
       return action.profile;
     case USER_INFO:
       return { ...state, address: action.address, fullname: action.fullname };
-    case LOGOUT:
-      return { authenticated: false };
     default:
       return state;
   }
 }
 
-function attachments(state = [], action) {
+function attachments(state = {}, action) {
   switch (action.type) {
-    case DOWNLOAD_ATTACHMENT:
-      return [...state, action.item];
-    case SELECT_TASK:
-    case FILTER:
-    case LOGOUT:
-      return [];
+    case DOWNLOAD_ATTACHMENTS:
+      let newState = Object.assign({}, state);
+      newState[action.taskId] = action.content;
+      return newState;
     default:
       return state;
   }

@@ -7,7 +7,9 @@ import './TaskInfo.css';
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
-  const attachments = useSelector((store) => store.attachments);
+  const attachments = useSelector(
+    (store) => store.attachments[props.currentTask.id]
+  );
   const displayStates = { true: 'Кратко', false: 'Подробнее' };
   const [displayState, setDisplayState] = useState(true);
 
@@ -19,8 +21,12 @@ function TaskInfo(props) {
   const dueDate = constructDate(props.currentTask.dueDate);
 
   useEffect(() => {
-    dispatch(downloadAttachments(props.currentTask.content));
+    console.log(props.currentTask.id);
+    dispatch(
+      downloadAttachments(props.currentTask.id, props.currentTask.content)
+    );
     setDisplayState(true);
+    // eslint-disable-next-line
   }, [props.currentTask?.id]);
 
   const expandCollapseBody = () => {
@@ -94,9 +100,13 @@ function TaskInfo(props) {
           </div>
           <div className="offcanvas-body">
             <DocViewer
-              documents={attachments.map((item) => {
-                return { uri: item };
-              })}
+              documents={
+                attachments
+                  ? attachments.map((item) => {
+                      return { uri: item };
+                    })
+                  : []
+              }
               pluginRenderers={DocViewerRenderers}
               config={{
                 header: {
