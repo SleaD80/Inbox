@@ -19,9 +19,9 @@ export const downloadAttachments =
     try {
       if (!getState().attachments.taskId) {
         let contentArr = [];
+        const userProfile = getState().userProfile;
+        const ticket = userProfile.ticket;
         for (let item of content) {
-          const userProfile = getState().userProfile;
-          const ticket = userProfile.ticket;
           const result = await axios.get('/api/dctm/v1/content', {
             params: {
               objectId: item.id,
