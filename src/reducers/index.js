@@ -13,7 +13,6 @@ import {
   USER_INFO,
   DOWNLOAD_ATTACHMENTS,
 } from '../actions';
-import { getColor } from '../helpers';
 
 function clearSelection(arr) {
   return arr.map((item) => {
