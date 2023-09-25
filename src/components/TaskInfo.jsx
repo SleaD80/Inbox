@@ -21,7 +21,6 @@ function TaskInfo(props) {
   const dueDate = constructDate(props.currentTask.dueDate);
 
   useEffect(() => {
-    console.log(props.currentTask.id);
     dispatch(
       downloadAttachments(props.currentTask.id, props.currentTask.content)
     );

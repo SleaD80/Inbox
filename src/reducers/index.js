@@ -13,10 +13,11 @@ import {
   USER_INFO,
   DOWNLOAD_ATTACHMENTS,
 } from '../actions';
+import { getColor } from '../helpers';
 
 function clearSelection(arr) {
   return arr.map((item) => {
-    return { ...item, active: 0, stage: 0 };
+    return { ...item, active: 0 };
   });
 }
 

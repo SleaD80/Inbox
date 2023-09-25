@@ -6,7 +6,7 @@ import { getDate, getColor } from '../helpers';
 function Task(props) {
   const date = getDate(props.dateSent);
   const dispatch = useDispatch();
-  const taskColor = getColor(props.dueDate);
+  const taskColor = getColor(props.level);
   return (
     <div
       className={`${

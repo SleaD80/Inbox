@@ -22,24 +22,29 @@ export const getDate = (timestamp) => {
   };
 };
 
-export const getColor = (dueDate) => {
+export const getLevel = (dueDate) => {
   const diff = dueDate - Date.now();
   switch (true) {
     case diff < 0:
-      return 'red';
-    case diff < 86400000:
-      return 'orange';
+      return 'Error';
+    case diff < 86400000: //24h
+      return 'Warn';
     default:
-      return 'black';
+      return 'Ok';
   }
 };
 
+export const getColor = (level) => {
+  const colors = { Ok: 'black', Warn: 'orange', Error: 'red' };
+  return colors[level];
+};
+
 export const base64ToArrayBuffer = (base64) => {
-  var binaryString = window.atob(base64);
-  var binaryLen = binaryString.length;
-  var bytes = new Uint8Array(binaryLen);
-  for (var i = 0; i < binaryLen; i++) {
-    var ascii = binaryString.charCodeAt(i);
+  let binaryString = window.atob(base64);
+  let binaryLen = binaryString.length;
+  let bytes = new Uint8Array(binaryLen);
+  for (let i = 0; i < binaryLen; i++) {
+    const ascii = binaryString.charCodeAt(i);
     bytes[i] = ascii;
   }
   return bytes;

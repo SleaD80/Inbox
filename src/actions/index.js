@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { base64ToArrayBuffer } from '../helpers';
+import { base64ToArrayBuffer, getLevel } from '../helpers';
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const CLOSE_TASK = 'CLOSE_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
@@ -65,7 +65,9 @@ export const fetchTasks = () => async (dispatch, getState) => {
     const data = result.data.data;
     dispatch({
       type: FETCH_TASKS,
-      tasks: data,
+      tasks: data.map((item) => {
+        return { ...item, level: getLevel(item.dueDate), stage: 0 };
+      }),
     });
   } catch (e) {
     dispatch({
