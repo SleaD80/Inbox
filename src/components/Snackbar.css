@@ -1,6 +1,7 @@
 .snackbar {
-  visibility: show; 
+  visibility: visible; 
   min-width: 250px;
+  max-height:55px;
   margin-left: -125px;
   background-color: red;
   color: #fff;
@@ -11,12 +12,8 @@
   z-index: 1;
   right: 10px;
   top: 50px;
-}
-
-.snackbar.show {
-  visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.7s, fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {
