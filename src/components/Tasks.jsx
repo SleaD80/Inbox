@@ -5,6 +5,7 @@ import TaskInfo from './TaskInfo';
 import Header from './Header';
 import FiltersList from './FiltersList';
 import SortList from './SortList';
+import Snackbar from './Snackbar';
 import gripVerticalIcon from '../assets/grip-vertical.svg';
 
 const STAGES = { 0: 'Рассмотрение', 1: 'Подписано', 2: 'Отклонено' };
@@ -87,6 +88,7 @@ class Tasks extends Component {
             )}
           </div>
         </div>
+        {this.props.snackbarState ? <Snackbar /> : null}
       </>
     );
   }
@@ -97,6 +99,7 @@ function mapStateToProps(state) {
     tasks: state.tasks,
     search: state.search,
     filterCriterium: state.filterCriterium,
+    snackbarState: state.snackbar.show,
   };
 }
 

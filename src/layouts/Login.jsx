@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../actions';
+import Snackbar from '../components/Snackbar';
 
 function Login() {
   const dispatch = useDispatch();
+  const snackbarState = useSelector((store) => store.snackbar.show);
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -89,6 +91,7 @@ function Login() {
           </div>
         </div>
       </div>
+      {snackbarState ? <Snackbar /> : null}
     </section>
   );
 }

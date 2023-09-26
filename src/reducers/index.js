@@ -12,6 +12,8 @@ import {
   RESTORE_SESSION,
   USER_INFO,
   DOWNLOAD_ATTACHMENTS,
+  SNACKBAR_SHOW,
+  SNACKBAR_CLOSE,
 } from '../actions';
 
 function clearSelection(arr) {
@@ -111,7 +113,12 @@ function userProfile(state = { authenticated: false }, action) {
     case RESTORE_SESSION:
       return action.profile;
     case USER_INFO:
-      return { ...state, address: action.address, fullname: action.fullname };
+      return {
+        ...state,
+        authenticated: true,
+        address: action.address,
+        fullname: action.fullname,
+      };
     default:
       return state;
   }
@@ -128,6 +135,17 @@ function attachments(state = {}, action) {
   }
 }
 
+function snackbar(state = { show: false, text: '' }, action) {
+  switch (action.type) {
+    case SNACKBAR_SHOW:
+      return { ...state, show: true, text: action.text };
+    case SNACKBAR_CLOSE:
+      return { ...state, show: false, text: '' };
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   tasks,
   search,
@@ -135,5 +153,6 @@ const rootReducer = combineReducers({
   theme,
   userProfile,
   attachments,
+  snackbar,
 });
 export default rootReducer;

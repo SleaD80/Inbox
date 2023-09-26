@@ -1,7 +1,7 @@
+import './App.css';
 import Tasks from './components/Tasks';
 import RequireAuth from './components/RequireAuth';
 import ThemeProvider from './components/ThemeProvider';
-import './App.css';
 import MainLayout from './layouts/MainLayout';
 import Login from './layouts/Login';
 import {
@@ -18,11 +18,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.props.restoreSession();
-    this.props.userInfo();
-  }
-
-  async componentDidMount() {
-    await this.props.fetchTasks();
   }
 
   render() {
@@ -43,7 +38,9 @@ class App extends Component {
               path="/login"
               element={
                 !this.props.authenticated ? (
-                  <Login />
+                  <>
+                    <Login />
+                  </>
                 ) : (
                   <Navigate to="/app/tasks" />
                 )

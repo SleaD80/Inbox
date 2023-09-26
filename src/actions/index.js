@@ -13,6 +13,8 @@ export const LOGOUT = 'LOGOUT';
 export const RESTORE_SESSION = 'RESTORE_SESSION';
 export const USER_INFO = 'USER_INFO';
 export const DOWNLOAD_ATTACHMENTS = 'DOWNLOAD_ATTACHMENTS';
+export const SNACKBAR_SHOW = 'SNACKBAR_SHOW';
+export const SNACKBAR_CLOSE = 'SNACKBAR_CLOSE';
 
 export const downloadAttachments =
   (taskId, content) => async (dispatch, getState) => {
@@ -44,7 +46,7 @@ export const downloadAttachments =
         });
       }
     } catch (e) {
-      dispatch({ type: null });
+      dispatch(displaySnackbar('Ошибка связи с сервером. Попробуйте позже'));
     }
   };
 
@@ -70,9 +72,7 @@ export const fetchTasks = () => async (dispatch, getState) => {
       }),
     });
   } catch (e) {
-    dispatch({
-      type: null,
-    });
+    dispatch(displaySnackbar('Ошибка связи с сервером. Попробуйте позже'));
   }
 };
 
@@ -106,12 +106,15 @@ export const userLogin =
         if (rememberUser) {
           localStorage.setItem('session', JSON.stringify(profile));
         }
+      } else {
+        dispatch(displaySnackbar('Неверный логин или пароль'));
       }
     } catch (e) {
       dispatch({
         type: LOGIN,
         profile: { authenticated: false },
       });
+      dispatch(displaySnackbar('Ошибка связи с сервером. Попробуйте позже'));
     }
   };
 
@@ -140,9 +143,7 @@ export const userInfo = () => async (dispatch, getState) => {
       dispatch(logout());
     }
   } catch (e) {
-    dispatch({
-      type: null,
-    });
+    dispatch(displaySnackbar('Ошибка связи с сервером. Попробуйте позже'));
   }
 };
 
@@ -153,12 +154,22 @@ export const logout = () => {
   return { type: LOGOUT };
 };
 
-export const restoreSession = () => {
+export const restoreSession = () => async (dispatch, getState) => {
   const session =
     sessionStorage.getItem('session') || localStorage.getItem('session');
-  return session
-    ? { type: RESTORE_SESSION, profile: JSON.parse(session) }
-    : { type: null };
+  if (session) {
+    await dispatch({ type: RESTORE_SESSION, profile: JSON.parse(session) });
+    dispatch(userInfo(getState().userProfile.username));
+    dispatch(fetchTasks(getState().userProfile.username));
+  }
+};
+
+export const displaySnackbar = (text) => {
+  return { type: SNACKBAR_SHOW, text: text };
+};
+
+export const removeSnackbar = () => {
+  return { type: SNACKBAR_CLOSE };
 };
 
 export const closeTask = (taskId, stageId) => {
