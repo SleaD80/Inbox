@@ -83,7 +83,7 @@ export const userLogin =
         '/api/dctm/v1/login',
         {
           userName: login,
-          password: password,
+          userTicket: password,
         },
         { timeout: 3000 }
       );
