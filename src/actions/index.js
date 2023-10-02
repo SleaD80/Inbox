@@ -33,9 +33,9 @@ export const downloadAttachments =
             },
             timeout: 3000,
           });
-          const data = result.data.data[0].data;
-          const blob = new Blob([base64ToArrayBuffer(data)], {
-            type: 'application/pdf',
+          const data = result.data.data[0];
+          const blob = new Blob([base64ToArrayBuffer(data.data)], {
+            type: data.mimeType,
           });
           contentArr.push(URL.createObjectURL(blob));
         }
