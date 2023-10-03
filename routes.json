@@ -1,5 +1,6 @@
 {
   "/api/dctm/v1/login": "/login",
   "/api/dctm/v1/tasks?user=:id": "/tasks?user=:id",
-  "/api/dctm/v1/userInfo?user=:id": "/userInfo?user=:id"
+  "/api/dctm/v1/userInfo?user=:id": "/userInfo?user=:id",
+  "/api/dctm/v1/content": "/content"
 }
