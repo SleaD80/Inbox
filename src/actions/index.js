@@ -79,6 +79,7 @@ export const fetchTasks = () => async (dispatch, getState) => {
 export const userLogin =
   (login, password, rememberUser) => async (dispatch) => {
     try {
+      // const result = await axios.get(
       const result = await axios.post(
         '/api/dctm/v1/login',
         {
