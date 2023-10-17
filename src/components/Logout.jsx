@@ -2,20 +2,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../actions';
 import Dropdown from './UI/Dropdown';
 
-function Logout() {
+function Logout(props) {
   const dispatch = useDispatch();
-  let surname, firstName;
   const username = useSelector((store) => store.userProfile.fullname);
-  const usernameArr = username ? username.split(' ') : [];
-  try {
-    [surname, firstName] = [usernameArr[0], usernameArr[1][0]];
-  } catch (e) {
-    surname = '';
-    firstName = '';
-  }
   return (
     <Dropdown
-      label={`${surname} ${firstName}.`}
+      label={getUserName(props?.username ? props.username : username)}
       style={{ right: '0', left: 'auto' }}
       options={[
         {
@@ -28,6 +20,18 @@ function Logout() {
       ]}
     />
   );
+
+  function getUserName(username) {
+    let surname, firstName;
+    const usernameArr = username ? username.split(' ') : [];
+    try {
+      [surname, firstName] = [usernameArr[0], usernameArr[1][0]];
+    } catch (e) {
+      surname = '';
+      firstName = '';
+    }
+    return `${surname} ${firstName}.`;
+  }
 }
 
 export default Logout;

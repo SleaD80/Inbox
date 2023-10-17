@@ -1,13 +1,13 @@
 /** @type { import('@storybook/react').Preview } */
-import 'bootswatch/dist/materia/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../public/materia/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import { withThemeByDataAttribute } from '@storybook/addon-styling';
 import { Provider } from 'react-redux';
-import { legacy_createStore as createStore } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import rootReducer from '../src/reducers';
+import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
 const preview = {
   parameters: {

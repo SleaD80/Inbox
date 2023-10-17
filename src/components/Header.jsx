@@ -4,7 +4,7 @@ import Dropdown from './UI/Dropdown';
 import Logout from './Logout';
 import { changeTheme } from '../actions';
 
-function Header() {
+function Header(props) {
   const dispatch = useDispatch();
   const theme = useSelector((store) => store.theme);
   const dataBsTheme = theme === 'slate' ? 'dark' : 'light';
@@ -65,7 +65,7 @@ function Header() {
               }}
             >
               <li className="nav-item dropdown">
-                <Logout />
+                <Logout {...props} />
               </li>
             </ul>
           </div>

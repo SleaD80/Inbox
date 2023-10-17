@@ -16,5 +16,8 @@ export default {
 };
 
 export const Default = {
-  args: { sortItemClick: () => {} },
+  args: {
+    username: 'Иванов А.',
+    sortItemClick: () => {},
+  },
 };
