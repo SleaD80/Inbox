@@ -49,6 +49,11 @@ function Header(props) {
                     label: 'Cerulean',
                     handleClick: () => dispatch(changeTheme('cerulean')),
                   },
+                  {
+                    id: 'target',
+                    label: 'Целевая Сибур',
+                    handleClick: () => dispatch(changeTheme('target')),
+                  },
                 ]}
               />
             </li>
