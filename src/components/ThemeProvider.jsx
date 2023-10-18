@@ -7,6 +7,7 @@ function ThemeProvider(props) {
     slate: '/slate/bootstrap.min.css',
     cerulean: '/cerulean/bootstrap.min.css',
     materia: '/materia/bootstrap.min.css',
+    target: '/target/custom-style.css',
   };
 
   let currentTheme = useSelector((store) => store.theme);

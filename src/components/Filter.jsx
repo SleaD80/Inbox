@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from '../actions';
 
 const Filter = (props) => {
-  const { criterium, title, number } = props;
+  const { criterium, title, number, icon } = props;
   const dispatch = useDispatch();
   const filterCriterium = useSelector((store) => store.filterCriterium);
   return (
@@ -15,8 +15,11 @@ const Filter = (props) => {
         dispatch(applyFilter(criterium));
       }}
     >
-      {title}
-      <span className="badge bg-primary rounded-pill">{number}</span>
+      <div className='d-flex align-items-center'>
+        {icon && <span className='me-2'>{icon}</span>}
+        {title}
+      </div>
+      <span className={`badge ${criterium === filterCriterium ? 'bg-primary' : 'bg-secondary'}`}>{number}</span>
     </button>
   );
 };

@@ -1,0 +1,56 @@
+@import './bootstrap.min.css';
+
+:root {
+  --color-stroke: #97A2BB;
+  --color-primary: #008C95;
+  --color-text: #333333;
+  --color-light: #FFFFFF;
+}
+
+#filtersPanel {
+  background-color: #EDF0f4;
+}
+
+.btn-group-vertical {
+  min-width: 15rem;
+}
+
+.btn-group-vertical {
+  --bs-secondary-rgb: 228,229,230;
+  --bs-primary-rgb: 0,140,149;
+}
+
+.btn-group-vertical .btn {
+  --bs-btn-bg: none;
+  --bs-btn-border-color: none;
+  --bs-btn-color: var(--color-text);
+  --bs-btn-font-size: 1rem;
+  --bs-btn-padding-y: .5rem;
+  --bs-btn-padding-x: .75rem;
+  border-radius: 8px !important;
+}
+
+.btn-group-vertical .btn:hover {
+  --bs-btn-hover-color: var(--color-text);
+  --bs-btn-hover-bg: var(--color-light);
+}
+
+.btn-group-vertical  .btn-primary {
+  --bs-btn-bg: var(--color-light);
+}
+
+.btn-group-vertical .badge {
+  --bs-badge-color: var(--color-text);
+}
+
+.btn-group-vertical .badge.bg-primary {
+  --bs-badge-color: var(--color-light);
+}
+
+.badge {
+  --bs-badge-font-weight: 500;
+  --bs-badge-padding-x: .5rem;
+  --bs-badge-padding-y: .25rem;
+  --bs-badge-border-radius: 6px;
+  --bs-badge-font-size: 14px;
+}
