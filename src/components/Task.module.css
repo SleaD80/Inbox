@@ -4,7 +4,15 @@
   text-overflow: ellipsis;
 }
 
-.dateBlock {
-  text-align: center;
-  max-width: 60px;
+.date_error {
+  color: red;
+}
+
+.urgently_icon {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: rgba(255, 12, 12, 0.64);
 }
