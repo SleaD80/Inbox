@@ -1,4 +1,4 @@
-export const getDate = (timestamp) => {
+export const getDate = (timestamp, isNumberFormat) => {
   const months = [
     'Янв',
     'Фев',
@@ -15,10 +15,15 @@ export const getDate = (timestamp) => {
   ];
 
   const currentDate = new Date(timestamp);
+  const date = currentDate.getDate();
+  const month = currentDate.getMonth() + 1;
+
+  const getNumberValue = (val) => val < 10 ? '0' + val : val;
+
   return {
     year: currentDate.getFullYear(),
-    month: months[currentDate.getMonth()],
-    date: currentDate.getDate(),
+    month: isNumberFormat ? getNumberValue(month) : months[month],
+    date: isNumberFormat ? getNumberValue(date) : date,
   };
 };
 

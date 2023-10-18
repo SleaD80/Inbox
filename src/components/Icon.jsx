@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IconTypes } from '../consts/consts';
+import { ReactComponent as IconCalendar } from '../assets/icons/calendar-icon.svg';
 import { ReactComponent as IconExpectation } from '../assets/icons/expectation-icon.svg';
 import { ReactComponent as IconFolder } from '../assets/icons/folder-icon.svg';
+import { ReactComponent as IconPerson } from '../assets/icons/person-icon.svg';
 import { ReactComponent as IconSchedule } from '../assets/icons/schedule-icon.svg';
 import { ReactComponent as IconTask } from '../assets/icons/task-icon.svg';
 import { ReactComponent as IconTaskSignature } from '../assets/icons/task-signature-icon.svg';
@@ -26,10 +28,14 @@ const Icon = ({
 
   const getIconSvg = () => {
     switch (name) {
+      case IconTypes.Calendar:
+        return <IconCalendar/>
       case IconTypes.Expectation:
         return <IconExpectation/>
       case IconTypes.Folder:
         return <IconFolder/>
+      case IconTypes.Person:
+        return <IconPerson/>
       case IconTypes.Schedule:
         return <IconSchedule/>
       case IconTypes.Task:
@@ -61,7 +67,7 @@ Icon.propTypes = {
   /**
    * How large should the icon be?
    */
-  name: PropTypes.oneOf(['Expectation', 'Folder', 'Schedule', 'Task', 'TaskSignature', 'Unchecked']),
+  name: PropTypes.oneOf(['Calendar', 'Expectation', 'Folder', 'Person', 'Schedule', 'Task', 'TaskSignature', 'Unchecked']),
   /**
    * What icon color to use
    */
