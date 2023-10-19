@@ -1,10 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from '../actions';
+import Icon from './Icon';
 
 const Filter = (props) => {
   const { criterium, title, number, icon } = props;
   const dispatch = useDispatch();
   const filterCriterium = useSelector((store) => store.filterCriterium);
+
+  const renderIconComponent = (name) => <Icon name={name} color='var(--color-stroke)' externalClass='me-2'/>
+
   return (
     <button
       type="button"
@@ -16,7 +20,7 @@ const Filter = (props) => {
       }}
     >
       <div className='d-flex align-items-center'>
-        {icon && <span className='me-2'>{icon}</span>}
+        {icon && renderIconComponent(icon)}
         {title}
       </div>
       <span className={`badge ${criterium === filterCriterium ? 'bg-primary' : 'bg-secondary'}`}>{number}</span>

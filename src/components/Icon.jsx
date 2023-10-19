@@ -1,15 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { IconTypes } from '../consts/consts';
+import { ReactComponent as IconCalendar } from '../assets/icons/calendar-icon.svg';
+import { ReactComponent as IconExpectation } from '../assets/icons/expectation-icon.svg';
+import { ReactComponent as IconFolder } from '../assets/icons/folder-icon.svg';
+import { ReactComponent as IconPerson } from '../assets/icons/person-icon.svg';
+import { ReactComponent as IconSchedule } from '../assets/icons/schedule-icon.svg';
+import { ReactComponent as IconTask } from '../assets/icons/task-icon.svg';
+import { ReactComponent as IconTaskSignature } from '../assets/icons/task-signature-icon.svg';
+import { ReactComponent as IconUnchecked } from '../assets/icons/unchecked-icon.svg';
 import './Icon.css';
 
 // Компонент для создания иконок. Напрямую не используется
 const Icon = ({
-  children,
   color,
   externalClass,
   hint,
   onClick,
   size = 'm',
+  name,
 }) => {
   const colorStyle = {
     borderColor: color,
@@ -17,11 +26,28 @@ const Icon = ({
   };
   const sizeClass = `icon_${size}`;
 
-  let iconChildren = null;
-
-  if (React.isValidElement(children)) {
-    iconChildren = React.cloneElement(children);
-  };
+  const getIconSvg = () => {
+    switch (name) {
+      case IconTypes.Calendar:
+        return <IconCalendar/>
+      case IconTypes.Expectation:
+        return <IconExpectation/>
+      case IconTypes.Folder:
+        return <IconFolder/>
+      case IconTypes.Person:
+        return <IconPerson/>
+      case IconTypes.Schedule:
+        return <IconSchedule/>
+      case IconTypes.Task:
+        return <IconTask/>
+      case IconTypes.TaskSignature:
+        return <IconTaskSignature/>
+      case IconTypes.Unchecked:
+        return <IconUnchecked/>
+      default:
+        return <IconFolder/>
+    }
+  }
 
   return (
     <span
@@ -30,7 +56,7 @@ const Icon = ({
       style={{ ...colorStyle }}
       title={hint}
     >
-      {iconChildren}
+      {getIconSvg()}
     </span>
   );
 };
@@ -39,9 +65,9 @@ export default Icon;
 
 Icon.propTypes = {
   /**
-   * Some svg image element
+   * How large should the icon be?
    */
-  children: PropTypes.element,
+  name: PropTypes.oneOf(['Calendar', 'Expectation', 'Folder', 'Person', 'Schedule', 'Task', 'TaskSignature', 'Unchecked']),
   /**
    * What icon color to use
    */
@@ -65,8 +91,8 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  children: null,
-  color: 'color-stroke',
+  name: IconTypes.Folder,
+  color: undefined,
   externalClass: undefined,
   hint: undefined,
   onClick: undefined,

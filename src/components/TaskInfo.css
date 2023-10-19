@@ -1,3 +1,75 @@
 .container {
   margin: 5px;
 }
+
+.info_wrapper {
+  display: grid;
+  grid-template-columns: 68% 1fr;
+  gap: 16px;
+  --color-divider: #E1E5EB;
+}
+
+.info_container {
+  border: 1px solid var(--color-divider);
+  border-radius: 16px;
+  padding: 0 16px;
+}
+
+.info_container .info_user:nth-child(n):not(:last-child),
+.info_container .info_date:nth-child(n):not(:last-child) {
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.info_user {
+  padding: 12px 0;
+}
+
+.info_user .icon{
+  margin-left: auto;
+  height: 36px;
+  width: 36px;
+}
+
+.info_user .role {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.info_date {
+  min-height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info_date .date {
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  margin: 0;
+}
+
+.info_date .date_due {
+  max-width: 80px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--color-text-muted);
+}
+
+.dropdown_wrapper {
+  margin: 20px 0;
+  border-radius: 16px;
+  border: 1px solid var(--color-divider);
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 68% 1fr;
+}
+
+.dropdown_wrapper button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

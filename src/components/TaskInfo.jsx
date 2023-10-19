@@ -1,69 +1,96 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { closeTask, downloadAttachments } from '../actions';
 import { getDate } from '../helpers';
 import DocViewer, { DocViewerRenderers } from '@cyntler/react-doc-viewer';
 import './TaskInfo.css';
+import Icon from './Icon';
+import { IconTypes } from '../consts/consts';
+
+const MILLISECONDS_IN_DAY = 86400000
 
 function TaskInfo(props) {
   const dispatch = useDispatch();
   const attachments = useSelector(
     (store) => store.attachments[props.currentTask.id]
   );
-  const displayStates = { true: 'Кратко', false: 'Подробнее' };
-  const [displayState, setDisplayState] = useState(true);
+  const username = useSelector((store) => store.userProfile.fullname);
 
   const constructDate = (timestamp) => {
-    const dateObj = getDate(timestamp);
-    return `${dateObj.date} ${dateObj.month} ${dateObj.year}`;
+    const dateObj = getDate(timestamp, true);
+    return `${dateObj.date}.${dateObj.month}.${dateObj.year}`;
   };
-  const dateSent = constructDate(props.currentTask.dateSent);
+
   const dueDate = constructDate(props.currentTask.dueDate);
+  const daysLeft = (Date.now() - props.currentTask.dueDate) / MILLISECONDS_IN_DAY;
+
+  const users = [
+    {
+      name: props.currentTask.author,
+      role: 'Автор'
+    },
+    {
+      name: username,
+      role: 'Исполнитель'
+    },
+  ];
 
   useEffect(() => {
     dispatch(
       downloadAttachments(props.currentTask.id, props.currentTask.content)
     );
-    setDisplayState(true);
     // eslint-disable-next-line
   }, [props.currentTask?.id]);
 
-  const expandCollapseBody = () => {
-    setDisplayState(!displayState);
-  };
+  const renderUserItem = ({ name, role }) => (
+    <div className="info_user d-flex align-items-center">
+      <div>
+        <p className="m-0">{name}</p>
+        <p className="m-0 role">{role}</p>
+      </div>
+      <Icon name={IconTypes.Person} color='#97A2BB'/>
+    </div>
+  );
 
   return (
-    <div className="card">
-      <div className="card-body">
+    <div className="main_card">
+      <div className="card-header">
         <h4 className="card-title">{props.currentTask.title}</h4>
-        <span
-          style={{ marginRight: '10px', marginBottom: '15px' }}
-          className="badge bg-secondary"
-        >
-          {`От ${dateSent}`}
-        </span>
-        <span className="badge bg-secondary">{`Выполнить до ${dueDate}`}</span>
-        <h6 className="card-subtitle mb-2 text-muted">
-          {props.currentTask.stage}
-        </h6>
-        <p className="card-text">
-          {' '}
-          {displayState
-            ? props.currentTask.body
-            : props.currentTask.body.slice(0, 200) + '...'}
-        </p>
-        <p className="btn-link" onClick={expandCollapseBody}>
-          {displayStates[displayState]}
-        </p>
+      </div>
+      <div className="card-body">
+        <div className="info_wrapper">
+          <div className="info_container">
+            {users.map(renderUserItem)}
+          </div>
+          <div className="info_container">
+            <div className="info_date">
+              <p className="date">{dueDate}</p>
+            </div>
+            <div className="info_date d-flex justify-content-between">
+              <p className="m-0 date_due">{`Осталось ${-Math.round(daysLeft)} дней`}</p>
+              <Icon name={IconTypes.Calendar} size="s" color="#6C6E70"/>
+            </div>
+          </div>
+        </div>
+        <div className="dropdown_wrapper align-items-center">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button">
+              Принять решение
+            </button>
+          </div>
+          <h6 className="card-subtitle">
+            {props.currentTask.stage}
+          </h6>
+        </div>
         <button
-          className="card-link btn btn-primary"
+          className="card-link btn btn-primary me-2"
           disabled={props.currentTask.stage !== 'Рассмотрение'}
           onClick={() => dispatch(closeTask(props.currentTask.id, 1))}
         >
           Подписать
         </button>
         <button
-          className="card-link btn btn-secondary"
+          className="card-link btn btn-secondary me-2"
           disabled={props.currentTask.stage !== 'Рассмотрение'}
           onClick={() => dispatch(closeTask(props.currentTask.id, 2))}
         >
